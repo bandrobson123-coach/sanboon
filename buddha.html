@@ -42,8 +42,12 @@ h2 small{display:block;font-size:14px;color:var(--gold);font-weight:600}
 .item p{color:var(--muted);font-size:14px}
 .price{font-size:24px;font-weight:700;color:var(--gold);white-space:nowrap}
 .price small{font-size:13px}
-.pick{display:block;width:calc(100% - 28px);margin:0 14px 14px;padding:10px;border-radius:24px;border:1.5px solid var(--gold);background:transparent;color:var(--brown);font:600 16px "Sarabun",sans-serif;cursor:pointer}
-.item.on .pick{background:var(--gold);color:#fff}
+.pick{display:block;width:calc(100% - 28px);margin:0 14px 14px;padding:13px;border-radius:40px;border:0;background:#06C755;color:#fff;font:700 18px "Sarabun",sans-serif;cursor:pointer}
+.item.on .pick{background:#048A3B}
+.go{display:block;width:100%;margin-top:14px;padding:15px;border:0;border-radius:40px;background:#06C755;color:#fff;font:700 19px "Sarabun",sans-serif;cursor:pointer}
+.go.done{background:#048A3B}
+#tok .ph{aspect-ratio:4/3;margin:14px 0 4px}
+#anu{text-align:center}
 form{display:grid;gap:14px}
 label.f{display:grid;gap:6px;font-weight:600}
 input[type=text],select{font:16px "Sarabun",sans-serif;padding:12px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
@@ -61,7 +65,7 @@ input[type=text],select{font:16px "Sarabun",sans-serif;padding:12px;border:1.5px
 .promise .no{border-style:dashed}
 .tokbox{display:flex;gap:6px;margin-top:12px}
 .tokbox input{flex:1;min-width:0;text-align:center;font:700 22px "Sarabun",sans-serif;padding:8px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
-.tb,.quick button,#copy{font:600 16px "Sarabun",sans-serif;border:1.5px solid var(--gold);background:var(--card);color:var(--brown);border-radius:12px;padding:8px 10px;cursor:pointer}
+.tb,.quick button{font:600 16px "Sarabun",sans-serif;border:1.5px solid var(--gold);background:var(--card);color:var(--brown);border-radius:12px;padding:8px 10px;cursor:pointer}
 .quick{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
 textarea{font:16px "Sarabun",sans-serif;padding:12px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
 .pay{background:var(--card);border:1.5px solid var(--gold);border-radius:16px;padding:14px;display:grid;gap:8px}
@@ -70,6 +74,7 @@ textarea{font:16px "Sarabun",sans-serif;padding:12px;border:1.5px solid var(--li
 .total{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:8px;font-size:18px}
 .total b{color:var(--gold);font-size:24px}
 .bank{display:grid;gap:2px;font-size:15px}
+#copy{font:700 16px "Sarabun",sans-serif;border:0;background:#06C755;color:#fff;border-radius:24px;padding:9px 18px;cursor:pointer}
 .acc{display:flex;justify-content:space-between;align-items:center;gap:8px}
 footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
 @media(max-width:380px){h1{font-size:29px}.promise{grid-template-columns:1fr}}
@@ -85,18 +90,16 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
   <figure class="ph" data-label="ภาพหลัก (แนวตั้ง)&#10;ดอกไม้ในงานไผ่สาน วางหน้าพระพุทธรูป&#10;ไฟล์: buddha-hero.jpg"><img src="buddha-hero.jpg" alt="ดอกไม้ในงานไผ่สาน ถวายหน้าพระพุทธรูป" onload="this.parentNode.classList.add('has')" onerror="this.remove()"></figure>
 </div>
 
-<section>
-  <h2><small>ทำไมจึงถวาย</small>ใจที่อยากให้ของดี ไม่เคยเปลี่ยน</h2>
-  <p>แม้ตัวเองจะมีน้อย คนไทยก็ยังเลือกของที่ดีที่สุดถวายพระเสมอ เพราะการบูชา คือการวางใจ ไว้กับความบริสุทธิ์</p>
-  <div class="why" style="margin-top:14px">
-    <div><b>ณ สถานที่ที่ควรบูชา</b><span>วัดป่าในจังหวัดสกลนคร ดินแดนแห่งครูบาอาจารย์</span></div>
-    <div><b>ด้วยของที่ประณีต</b><span>งานไผ่สานทำมือทีละเส้น ไม่ใช่ของสำเร็จรูปจากร้าน</span></div>
-    <div><b>และได้ช่วยคนไปพร้อมกัน</b><span>ช่างสานในหมู่บ้านมีรายได้จากฝีมือของตน</span></div>
-  </div>
+<section id="anu">
+  <h2><small>ให้ก่อน · ไม่มีค่าใช้จ่าย</small>ร่วมอนุโมทนาบุญ</h2>
+  <p>เขียนชื่อของคุณและคนที่รัก ลงสมุดถวาย ณ วัดป่า จังหวัดสกลนคร<br>ยินดีในความดีที่ผู้อื่นทำ ก็เป็นบุญของเราเอง</p>
+  <button type="button" class="go" id="anuBtn">ขออนุโมทนาบุญ 🙏</button>
+  <p class="note" id="anuNote" style="margin-top:8px">กดแล้ว ใส่ชื่อในส่วน "ตั้งเจตนา" ด้านล่าง</p>
 </section>
 
 <section id="tok">
   <h2><small>ตอกบูชา · ทุกคนร่วมได้</small>ตอกหนึ่งเส้น สู่มือช่างสาน</h2>
+  <figure class="ph" data-label="ภาพตอกไผ่&#10;ไฟล์: tok.jpg"><img src="tok.jpg" alt="ตอกไผ่ที่จักแล้ว รอมอบให้ช่างสาน" onload="this.parentNode.classList.add('has')" onerror="this.remove()"></figure>
   <p>ตอกบูชาเส้นละ 1 บาท นำไปมอบให้ช่างสาน ใช้สานเป็นของถวาย ตอกของคุณจะอยู่ในเนื้องานจริง</p>
   <div class="tokbox">
     <button type="button" class="tb" data-d="-10">−10</button>
@@ -107,12 +110,23 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
   </div>
   <div class="quick"><button type="button" data-q="9">9 เส้น</button><button type="button" data-q="99">99 เส้น</button><button type="button" data-q="199">199 เส้น</button><button type="button" data-q="999">999 เส้น</button></div>
   <p class="note" id="toksum">ยังไม่ได้เลือกตอกบูชา</p>
+  <button type="button" class="go" id="tokBtn">ร่วมตอกบูชา ›</button>
 </section>
 
 <section id="items">
   <h2><small>เลือกของถวาย</small>ดอกไม้สด ในงานไผ่สานทำมือ</h2>
   <div class="items" id="itemList"><p class="note">กำลังโหลดรายการ…</p></div>
   <p class="note" style="margin-top:12px;text-align:left">* งานไผ่สานฝีมือช่างสกลนคร รูปแบบเปลี่ยนไปตามงานที่ช่างสานได้ในแต่ละช่วง โดยคงขนาดและคุณค่าเทียบเท่ากับที่คุณเลือก</p>
+</section>
+
+<section>
+  <h2><small>ทำไมจึงถวาย</small>ใจที่อยากให้ของดี ไม่เคยเปลี่ยน</h2>
+  <p>แม้ตัวเองจะมีน้อย คนไทยก็ยังเลือกของที่ดีที่สุดถวายพระเสมอ เพราะการบูชา คือการวางใจ ไว้กับความบริสุทธิ์</p>
+  <div class="why" style="margin-top:14px">
+    <div><b>ณ สถานที่ที่ควรบูชา</b><span>วัดป่าในจังหวัดสกลนคร ดินแดนแห่งครูบาอาจารย์</span></div>
+    <div><b>ด้วยของที่ประณีต</b><span>งานไผ่สานทำมือทีละเส้น ไม่ใช่ของสำเร็จรูปจากร้าน</span></div>
+    <div><b>และได้ช่วยคนไปพร้อมกัน</b><span>ช่างสานในหมู่บ้านมีรายได้จากฝีมือของตน</span></div>
+  </div>
 </section>
 
 <section >
@@ -125,11 +139,10 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
 <section id="intent">
   <h2><small>ตั้งเจตนา</small>ถวายในนามของใคร</h2>
   <form id="f" novalidate>
-    <div class="chosen" id="chosen">ยังไม่ได้เลือก · เลือกตอกบูชา ของถวาย หรือติ๊กขออนุโมทนาบุญด้านล่าง</div>
     <label class="f">ชื่อที่จะเอ่ยถวาย
       <input type="text" id="name" placeholder="เช่น คุณแม่… คุณพ่อ… พร้อมครอบครัว" maxlength="120">
     </label>
-    <div class="opt"><label><input type="checkbox" id="anumo"><span><b>ขออนุโมทนาบุญ</b> · เขียนชื่อนี้ลงสมุดถวาย ณ วัด<br><small style="color:var(--muted)">ไม่มีค่าใช้จ่าย ติ๊กอย่างเดียวก็ส่งได้</small></span></label></div>
+    <div class="chosen" id="chosen">ยังไม่ได้เลือก · เลือกตอกบูชา ของถวาย หรือกดขออนุโมทนาบุญด้านบน</div>
     <div class="f" id="howWrap" style="font-weight:600">วิธีถวายของ
       <div class="opt" style="margin-top:6px">
         <label><input type="radio" name="how" value="ให้สานบุญนำไปถวายแทน" checked><span>ให้สานบุญนำไปถวายแทน แล้วส่งภาพกลับ</span></label>
@@ -139,6 +152,7 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
     <label class="f" id="placeWrap">วัดที่จะถวาย
       <select id="place">
         <option>วัดป่านาคนิมิตต์ จ.สกลนคร (ถวายได้ทุกวัน)</option>
+        <option>วัดป่าแสงธรรมเจริญ (วัดป่าในสาขาของวัดดอยธรรมเจดีย์) (ถวายได้ทุกวัน)</option>
         <option>วัดอื่นในจังหวัดสกลนคร (เดือนละ 1 ครั้ง)</option>
       </select>
     </label>
@@ -189,7 +203,7 @@ var DEFAULT_ITEMS=[
  {cat:'พุทธบูชา',name:'งานไผ่สานขนาดกลาง + ดอกไม้',desc:'เช่น ชะลอม ข้องเล็ก',price:149,img:'buddha-m.jpg'}
 ];
 /* ==================== */
-var chosen=null, tok=0;
+var chosen=null, tok=0, anumo=false;
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function imgUrl(v){v=(v||'').trim();var m=v.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=)([\w-]+)/);if(m)return 'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w1200';return v;}
 function parseCSV(t){var rows=[],row=[],f='',q=false;for(var i=0;i<t.length;i++){var c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++;}else q=false;}else f+=c;}else if(c=='"')q=true;else if(c==','){row.push(f);f='';}else if(c=='\n'){row.push(f);rows.push(row);row=[];f='';}else if(c!='\r')f+=c;}if(f||row.length){row.push(f);rows.push(row);}return rows;}
@@ -228,12 +242,15 @@ document.getElementById('tokn').addEventListener('input',function(){setTok(this.
 function how(){return document.querySelector('input[name=how]:checked').value;}
 function update(){
   var lines=[],sum=0;
+  if(anumo)lines.push(['ขออนุโมทนาบุญ · เขียนชื่อลงสมุดถวาย','ฟรี']);
   if(tok>0){lines.push(['ตอกบูชา '+tok+' เส้น',tok]);sum+=tok;}
+  var ab=document.getElementById('anuBtn');ab.textContent=anumo?'อนุโมทนาแล้ว ✓ (กดอีกครั้งเพื่อยกเลิก)':'ขออนุโมทนาบุญ 🙏';ab.classList.toggle('done',anumo);
+  var tb=document.getElementById('tokBtn');tb.textContent=tok>0?('ร่วมตอกบูชา '+tok+' เส้น ✓ ไปต่อ ›'):'ร่วมตอกบูชา ›';tb.classList.toggle('done',tok>0);
   if(chosen){lines.push([chosen.name,chosen.price]);sum+=chosen.price;}
   document.getElementById('toksum').textContent=tok>0?('ตอกบูชา '+tok+' เส้น · '+tok+' บาท'):'ยังไม่ได้เลือกตอกบูชา';
-  document.getElementById('lines').innerHTML=lines.map(function(l){return '<div><span>'+esc(l[0])+'</span><span>'+l[1]+' บาท</span></div>';}).join('')||'<div><span>ยังไม่ได้เลือก</span><span></span></div>';
+  document.getElementById('lines').innerHTML=lines.map(function(l){return '<div><span>'+esc(l[0])+'</span><span>'+(typeof l[1]==='number'?l[1]+' บาท':l[1])+'</span></div>';}).join('')||'<div><span>ยังไม่ได้เลือก</span><span></span></div>';
   document.getElementById('total').textContent=sum.toLocaleString('th-TH')+' บาท';
-  document.getElementById('chosen').textContent=lines.length?lines.map(function(l){return l[0];}).join(' · '):'ยังไม่ได้เลือก · เลือกตอกบูชา ของถวาย หรือติ๊กขออนุโมทนาบุญด้านล่าง';
+  document.getElementById('chosen').textContent=lines.length?lines.map(function(l){return l[0];}).join(' · '):'ยังไม่ได้เลือก · เลือกตอกบูชา ของถวาย หรือกดขออนุโมทนาบุญด้านบน';
   var self=how()==='รับไปถวายเอง'&&chosen;
   document.getElementById('howWrap').style.display=chosen?'grid':'none';
   document.getElementById('placeWrap').style.display=self?'none':'grid';
@@ -243,6 +260,8 @@ function update(){
 }
 document.querySelectorAll('input[name=how]').forEach(function(r){r.addEventListener('change',update);});
 ['name','rname','rphone','raddr'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){document.getElementById('err').textContent='';});});
+document.getElementById('anuBtn').addEventListener('click',function(){anumo=!anumo;update();if(anumo)document.getElementById('tok').scrollIntoView({behavior:'smooth'});});
+document.getElementById('tokBtn').addEventListener('click',function(){if(tok<1)setTok(9);document.getElementById('items').scrollIntoView({behavior:'smooth'});});
 document.getElementById('copy').addEventListener('click',function(){
   var b=this,t='4381234647';
   function ok(){b.textContent='คัดลอกแล้ว ✓';setTimeout(function(){b.textContent='คัดลอก';},1800);}
@@ -251,8 +270,7 @@ document.getElementById('copy').addEventListener('click',function(){
 document.getElementById('f').addEventListener('submit',function(e){
   e.preventDefault();
   var err=document.getElementById('err'),name=document.getElementById('name').value.trim();
-  var anumo=document.getElementById('anumo').checked;
-  if(!tok&&!chosen&&!anumo){err.textContent='เลือกตอกบูชา ของถวาย หรือติ๊กขออนุโมทนาบุญ อย่างน้อย 1 อย่าง';document.getElementById('tok').scrollIntoView({behavior:'smooth'});return;}
+  if(!tok&&!chosen&&!anumo){err.textContent='เลือกตอกบูชา ของถวาย หรือกดขออนุโมทนาบุญ อย่างน้อย 1 อย่าง';document.getElementById('anu').scrollIntoView({behavior:'smooth'});return;}
   if(!name){err.textContent='ใส่ชื่อที่จะเอ่ยถวายก่อน';document.getElementById('name').focus();return;}
   var self=chosen&&how()==='รับไปถวายเอง';
   if(self){var rn=document.getElementById('rname').value.trim(),rp=document.getElementById('rphone').value.trim(),ra=document.getElementById('raddr').value.trim();
