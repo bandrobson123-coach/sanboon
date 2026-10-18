@@ -125,10 +125,11 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
 <section id="intent">
   <h2><small>ตั้งเจตนา</small>ถวายในนามของใคร</h2>
   <form id="f" novalidate>
-    <div class="chosen" id="chosen">ยังไม่ได้เลือก · เลือกตอกบูชา หรือของถวาย หรือทั้งสองอย่าง</div>
+    <div class="chosen" id="chosen">ยังไม่ได้เลือก · เลือกตอกบูชา ของถวาย หรือติ๊กขออนุโมทนาบุญด้านล่าง</div>
     <label class="f">ชื่อที่จะเอ่ยถวาย
       <input type="text" id="name" placeholder="เช่น คุณแม่… คุณพ่อ… พร้อมครอบครัว" maxlength="120">
     </label>
+    <div class="opt"><label><input type="checkbox" id="anumo"><span><b>ขออนุโมทนาบุญ</b> · เขียนชื่อนี้ลงสมุดถวาย ณ วัด<br><small style="color:var(--muted)">ไม่มีค่าใช้จ่าย ติ๊กอย่างเดียวก็ส่งได้</small></span></label></div>
     <div class="f" id="howWrap" style="font-weight:600">วิธีถวายของ
       <div class="opt" style="margin-top:6px">
         <label><input type="radio" name="how" value="ให้สานบุญนำไปถวายแทน" checked><span>ให้สานบุญนำไปถวายแทน แล้วส่งภาพกลับ</span></label>
@@ -232,7 +233,7 @@ function update(){
   document.getElementById('toksum').textContent=tok>0?('ตอกบูชา '+tok+' เส้น · '+tok+' บาท'):'ยังไม่ได้เลือกตอกบูชา';
   document.getElementById('lines').innerHTML=lines.map(function(l){return '<div><span>'+esc(l[0])+'</span><span>'+l[1]+' บาท</span></div>';}).join('')||'<div><span>ยังไม่ได้เลือก</span><span></span></div>';
   document.getElementById('total').textContent=sum.toLocaleString('th-TH')+' บาท';
-  document.getElementById('chosen').textContent=lines.length?lines.map(function(l){return l[0];}).join(' · '):'ยังไม่ได้เลือก · เลือกตอกบูชา หรือของถวาย หรือทั้งสองอย่าง';
+  document.getElementById('chosen').textContent=lines.length?lines.map(function(l){return l[0];}).join(' · '):'ยังไม่ได้เลือก · เลือกตอกบูชา ของถวาย หรือติ๊กขออนุโมทนาบุญด้านล่าง';
   var self=how()==='รับไปถวายเอง'&&chosen;
   document.getElementById('howWrap').style.display=chosen?'grid':'none';
   document.getElementById('placeWrap').style.display=self?'none':'grid';
@@ -250,7 +251,8 @@ document.getElementById('copy').addEventListener('click',function(){
 document.getElementById('f').addEventListener('submit',function(e){
   e.preventDefault();
   var err=document.getElementById('err'),name=document.getElementById('name').value.trim();
-  if(!tok&&!chosen){err.textContent='เลือกตอกบูชา หรือของถวาย อย่างน้อย 1 อย่าง';document.getElementById('tok').scrollIntoView({behavior:'smooth'});return;}
+  var anumo=document.getElementById('anumo').checked;
+  if(!tok&&!chosen&&!anumo){err.textContent='เลือกตอกบูชา ของถวาย หรือติ๊กขออนุโมทนาบุญ อย่างน้อย 1 อย่าง';document.getElementById('tok').scrollIntoView({behavior:'smooth'});return;}
   if(!name){err.textContent='ใส่ชื่อที่จะเอ่ยถวายก่อน';document.getElementById('name').focus();return;}
   var self=chosen&&how()==='รับไปถวายเอง';
   if(self){var rn=document.getElementById('rname').value.trim(),rp=document.getElementById('rphone').value.trim(),ra=document.getElementById('raddr').value.trim();
@@ -262,10 +264,13 @@ document.getElementById('f').addEventListener('submit',function(e){
   if(chosen){msg+='\nของถวาย: '+chosen.name+' ('+chosen.price+' บาท)\nวิธีถวาย: '+how();
     if(self)msg+='\nผู้รับ: '+rn+' · '+rp+'\nที่อยู่: '+ra+'\n(รอแจ้งค่าส่งตามจริง)';
     else msg+='\nวัด: '+document.getElementById('place').value;}
+  if(anumo)msg+='\nขออนุโมทนาบุญ · เขียนชื่อลงสมุดถวาย ✓';
   var sum=tok+(chosen?chosen.price:0);
+  if(sum>0){
   msg+='\nรวม: '+sum+' บาท'+(self?' + ค่าส่ง':'');
   msg+='\n\n— ร่วมถวาย —\nกรุงศรีอยุธยา\nบจก. ยูนิคอร์น (เอเชีย)\n438-1-23464-7';
   msg+=self?'\n(รอเราแจ้งค่าส่งในแชทก่อนโอน)':'\nโอนแล้วแนบสลิปในแชทนี้ 🙏';
+  }else msg+='\n\nสาธุ 🙏';
   location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);
 });
 load(); update();
