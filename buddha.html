@@ -255,7 +255,9 @@ document.getElementById('f').addEventListener('submit',function(e){
   var self=chosen&&how()==='รับไปถวายเอง';
   if(self){var rn=document.getElementById('rname').value.trim(),rp=document.getElementById('rphone').value.trim(),ra=document.getElementById('raddr').value.trim();
     if(!rn||!rp||!ra){err.textContent='กรอกชื่อผู้รับ เบอร์โทร และที่อยู่ให้ครบ';return;}}
-  var msg='🙏 '+CATEGORY+'\nเอ่ยถวายในนาม: '+name;
+  var d=new Date(),p2=function(n){return ('0'+n).slice(-2);};
+  var code='B'+p2(d.getMonth()+1)+p2(d.getDate())+'-'+(1000+Math.floor(Math.random()*9000));
+  var msg='🙏 '+CATEGORY+'\nเลขที่ #'+code+'\nเอ่ยถวายในนาม: '+name;
   if(tok)msg+='\nตอกบูชา: '+tok+' เส้น ('+tok+' บาท)';
   if(chosen){msg+='\nของถวาย: '+chosen.name+' ('+chosen.price+' บาท)\nวิธีถวาย: '+how();
     if(self)msg+='\nผู้รับ: '+rn+' · '+rp+'\nที่อยู่: '+ra+'\n(รอแจ้งค่าส่งตามจริง)';
