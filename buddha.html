@@ -98,9 +98,9 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
 </section>
 
 <section id="tok">
-  <h2><small>ตอกบูชา · ทุกคนร่วมได้</small>ตอกหนึ่งเส้น สู่มือช่างสาน</h2>
+  <h2><small>กองบูชาตอกบุญ · ทุกคนร่วมได้</small>ตอกหนึ่งเส้น สู่มือช่างสาน</h2>
   <figure class="ph" data-label="ภาพตอกไผ่&#10;ไฟล์: tok.jpg"><img src="tok.jpg" alt="ตอกไผ่ที่จักแล้ว รอมอบให้ช่างสาน" onload="this.parentNode.classList.add('has')" onerror="this.remove()"></figure>
-  <p>ตอกบูชาเส้นละ 1 บาท นำไปมอบให้ช่างสาน ใช้สานเป็นของถวาย ตอกของคุณจะอยู่ในเนื้องานจริง</p>
+  <p><b>เส้นละ 1 บาท</b> · รวมตอกจากผู้ศรัทธา มอบให้กลุ่มจักสาน <b>แม่โขง แบมบู คราฟ</b> ทุกสิ้นเดือน · ส่งภาพกลับให้คุณ<br>ช่างสานเป็นของใช้ เลี้ยงชีพ ให้มีชีวิตที่ดีขึ้น</p>
   <div class="tokbox">
     <button type="button" class="tb" data-d="-10">−10</button>
     <button type="button" class="tb" data-d="-1">−1</button>
@@ -109,8 +109,8 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
     <button type="button" class="tb" data-d="10">+10</button>
   </div>
   <div class="quick"><button type="button" data-q="9">9 เส้น</button><button type="button" data-q="99">99 เส้น</button><button type="button" data-q="199">199 เส้น</button><button type="button" data-q="999">999 เส้น</button></div>
-  <p class="note" id="toksum">ยังไม่ได้เลือกตอกบูชา</p>
-  <button type="button" class="go" id="tokBtn">ร่วมตอกบูชา ›</button>
+  <p class="note" id="toksum">ยังไม่ได้เลือกตอกบุญ</p>
+  <button type="button" class="go" id="tokBtn">ร่วมกองบูชาตอกบุญ ›</button>
 </section>
 
 <section id="items">
@@ -142,7 +142,7 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
     <label class="f">ชื่อที่จะเอ่ยถวาย
       <input type="text" id="name" placeholder="เช่น คุณแม่… คุณพ่อ… พร้อมครอบครัว" maxlength="120">
     </label>
-    <div class="chosen" id="chosen">ยังไม่ได้เลือก · เลือกตอกบูชา ของถวาย หรือกดขออนุโมทนาบุญด้านบน</div>
+    <div class="chosen" id="chosen">ยังไม่ได้เลือก · เลือกตอกบุญ ของถวาย หรือกดขออนุโมทนาบุญด้านบน</div>
     <div class="f" id="howWrap" style="font-weight:600">วิธีถวายของ
       <div class="opt" style="margin-top:6px">
         <label><input type="radio" name="how" value="ให้สานบุญนำไปถวายแทน" checked><span>ให้สานบุญนำไปถวายแทน แล้วส่งภาพกลับ</span></label>
@@ -151,9 +151,21 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
     </div>
     <label class="f" id="placeWrap">วัดที่จะถวาย
       <select id="place">
-        <option>วัดป่านาคนิมิตต์ จ.สกลนคร (ถวายได้ทุกวัน)</option>
-        <option>วัดป่าแสงธรรมเจริญ (วัดป่าในสาขาของวัดดอยธรรมเจดีย์) (ถวายได้ทุกวัน)</option>
-        <option>วัดอื่นในจังหวัดสกลนคร (เดือนละ 1 ครั้ง)</option>
+        <optgroup label="ถวายได้ทุกวัน (วันถัดไป)">
+        <option>วัดป่านาคนิมิตต์ จ.สกลนคร</option>
+        <option>วัดป่าแสงธรรมเจริญ (สาขาวัดดอยธรรมเจดีย์)</option>
+        <option>วัดดอยธรรมเจดีย์</option>
+        </optgroup>
+        <optgroup label="สานบุญแจ้งวันไปถวาย">
+        <option>วัดป่าสุทธาวาส</option>
+        <option>วัดพระธาตุเชิงชุมวรวิหาร</option>
+        <option>รอยพระพุทธบาทสี่รอย ณ วัดพระธาตุเชิงชุมวรวิหาร</option>
+        <option>วัดป่าอุดมสมพร (วัดพระอาจารย์ฝั้น อาจาโร)</option>
+        <option>พระธาตุพนมวรวิหาร จ.นครพนม</option>
+        <option>รอยพระพุทธบาท เกาะดอนสวรรค์ หนองหาร</option>
+        <option>เจดีย์พระพุทธบาทน้ำพุ ริมหนองหาร</option>
+        <option>วัดอื่นในจังหวัดสกลนคร</option>
+        </optgroup>
       </select>
     </label>
     <div id="addrWrap" style="display:none;gap:12px">
@@ -199,7 +211,6 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
 var CATEGORY='พุทธบูชา';
 var SHEET_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vR-tMgtDgA7bmCDUWgGqpW9h4uafw_b4ZoGLe6z1ZBFZIlMRYK5DO_qsZOqTzEOL8Ley3yydcn5pn_B/pub?output=csv';  /* วางลิงก์ CSV ของ Google Sheet ที่เผยแพร่แล้วตรงนี้ */
 var DEFAULT_ITEMS=[
- {cat:'พุทธบูชา',name:'งานไผ่สานขนาดเล็ก + ดอกไม้',desc:'เช่น ชะลอมเล็ก',price:49,img:'buddha-s.jpg'},
  {cat:'พุทธบูชา',name:'งานไผ่สานขนาดกลาง + ดอกไม้',desc:'เช่น ชะลอม ข้องเล็ก',price:149,img:'buddha-m.jpg'}
 ];
 /* ==================== */
@@ -243,17 +254,17 @@ function how(){return document.querySelector('input[name=how]:checked').value;}
 function update(){
   var lines=[],sum=0;
   if(anumo)lines.push(['ขออนุโมทนาบุญ · เขียนชื่อลงสมุดถวาย','ฟรี']);
-  if(tok>0){lines.push(['ตอกบูชา '+tok+' เส้น',tok]);sum+=tok;}
+  if(tok>0){lines.push(['กองบูชาตอกบุญ '+tok+' เส้น',tok]);sum+=tok;}
   var ab=document.getElementById('anuBtn');ab.textContent=anumo?'อนุโมทนาแล้ว ✓ (กดอีกครั้งเพื่อยกเลิก)':'ขออนุโมทนาบุญ 🙏';ab.classList.toggle('done',anumo);
-  var tb=document.getElementById('tokBtn');tb.textContent=tok>0?('ร่วมตอกบูชา '+tok+' เส้น ✓ ไปต่อ ›'):'ร่วมตอกบูชา ›';tb.classList.toggle('done',tok>0);
+  var tb=document.getElementById('tokBtn');tb.textContent=tok>0?('ร่วมตอกบุญ '+tok+' เส้น ✓ ไปต่อ ›'):'ร่วมกองบูชาตอกบุญ ›';tb.classList.toggle('done',tok>0);
   if(chosen){lines.push([chosen.name,chosen.price]);sum+=chosen.price;}
-  document.getElementById('toksum').textContent=tok>0?('ตอกบูชา '+tok+' เส้น · '+tok+' บาท'):'ยังไม่ได้เลือกตอกบูชา';
+  document.getElementById('toksum').textContent=tok>0?('ตอกบุญ '+tok+' เส้น · '+tok+' บาท'):'ยังไม่ได้เลือกตอกบุญ';
   document.getElementById('lines').innerHTML=lines.map(function(l){return '<div><span>'+esc(l[0])+'</span><span>'+(typeof l[1]==='number'?l[1]+' บาท':l[1])+'</span></div>';}).join('')||'<div><span>ยังไม่ได้เลือก</span><span></span></div>';
   document.getElementById('total').textContent=sum.toLocaleString('th-TH')+' บาท';
-  document.getElementById('chosen').textContent=lines.length?lines.map(function(l){return l[0];}).join(' · '):'ยังไม่ได้เลือก · เลือกตอกบูชา ของถวาย หรือกดขออนุโมทนาบุญด้านบน';
+  document.getElementById('chosen').textContent=lines.length?lines.map(function(l){return l[0];}).join(' · '):'ยังไม่ได้เลือก · เลือกตอกบุญ ของถวาย หรือกดขออนุโมทนาบุญด้านบน';
   var self=how()==='รับไปถวายเอง'&&chosen;
   document.getElementById('howWrap').style.display=chosen?'grid':'none';
-  document.getElementById('placeWrap').style.display=self?'none':'grid';
+  document.getElementById('placeWrap').style.display=(chosen&&!self)?'grid':'none';
   document.getElementById('addrWrap').style.display=self?'grid':'none';
   document.getElementById('shipnote').style.display=self?'block':'none';
   document.getElementById('err').textContent='';
@@ -270,7 +281,7 @@ document.getElementById('copy').addEventListener('click',function(){
 document.getElementById('f').addEventListener('submit',function(e){
   e.preventDefault();
   var err=document.getElementById('err'),name=document.getElementById('name').value.trim();
-  if(!tok&&!chosen&&!anumo){err.textContent='เลือกตอกบูชา ของถวาย หรือกดขออนุโมทนาบุญ อย่างน้อย 1 อย่าง';document.getElementById('anu').scrollIntoView({behavior:'smooth'});return;}
+  if(!tok&&!chosen&&!anumo){err.textContent='เลือกตอกบุญ ของถวาย หรือกดขออนุโมทนาบุญ อย่างน้อย 1 อย่าง';document.getElementById('anu').scrollIntoView({behavior:'smooth'});return;}
   if(!name){err.textContent='ใส่ชื่อที่จะเอ่ยถวายก่อน';document.getElementById('name').focus();return;}
   var self=chosen&&how()==='รับไปถวายเอง';
   if(self){var rn=document.getElementById('rname').value.trim(),rp=document.getElementById('rphone').value.trim(),ra=document.getElementById('raddr').value.trim();
@@ -278,7 +289,7 @@ document.getElementById('f').addEventListener('submit',function(e){
   var d=new Date(),p2=function(n){return ('0'+n).slice(-2);};
   var code='B'+p2(d.getMonth()+1)+p2(d.getDate())+'-'+(1000+Math.floor(Math.random()*9000));
   var msg='🙏 '+CATEGORY+'\nเลขที่ #'+code+'\nเอ่ยถวายในนาม: '+name;
-  if(tok)msg+='\nตอกบูชา: '+tok+' เส้น ('+tok+' บาท)';
+  if(tok)msg+='\nกองบูชาตอกบุญ: '+tok+' เส้น ('+tok+' บาท)\n→ มอบกลุ่มแม่โขง แบมบู คราฟ สิ้นเดือน';
   if(chosen){msg+='\nของถวาย: '+chosen.name+' ('+chosen.price+' บาท)\nวิธีถวาย: '+how();
     if(self)msg+='\nผู้รับ: '+rn+' · '+rp+'\nที่อยู่: '+ra+'\n(รอแจ้งค่าส่งตามจริง)';
     else msg+='\nวัด: '+document.getElementById('place').value;}
