@@ -56,6 +56,10 @@ input[type=text],select{font:16px "Sarabun",sans-serif;padding:12px;border:1.5px
 .opt input{margin-top:6px;accent-color:#C8892B}
 .chosen{background:var(--card);border:1px dashed var(--gold);border-radius:12px;padding:10px 12px;color:var(--brown)}
 .err{color:#A32D2D;font-size:14px;min-height:1em}
+#backup{display:none;margin-top:14px;padding:14px;border:2px solid #06C755;border-radius:14px;background:#fff}
+#backup b{display:block;font-size:17px;margin-bottom:6px}
+#backup pre{white-space:pre-wrap;font:15px/1.6 "Sarabun",sans-serif;background:#f4f4f4;padding:10px;border-radius:10px;margin:8px 0;max-height:220px;overflow:auto}
+#backup .send{margin-top:8px}
 .send{display:block;width:100%;padding:15px;border:0;border-radius:40px;background:#06C755;color:#fff;font:700 19px "Sarabun",sans-serif;cursor:pointer}
 .note{font-size:14px;color:var(--muted);text-align:center}
 .breath{text-align:center}.inform{margin:22px 0 6px}.inform h2{margin-bottom:12px}
@@ -203,6 +207,13 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
     <div class="err" id="err"></div>
     <button type="submit" class="send">ส่งเจตนาเข้าไลน์ ›</button>
     <p class="note">เปิดแชทสานบุญพร้อมข้อความและเลขบัญชี · กดส่ง แล้วแนบสลิปในแชทได้เลย</p>
+    <div id="backup">
+      <b>ถ้าเปิดไลน์แล้ว ช่องข้อความว่าง</b>
+      ข้อความของคุณถูกคัดลอกไว้แล้ว · ในแชทสานบุญ กดค้างที่ช่องพิมพ์ แล้วกด "วาง" และส่งได้เลย
+      <pre id="bmsg"></pre>
+      <button type="button" class="send" id="bcopy">คัดลอกข้อความอีกครั้ง</button>
+      <button type="button" class="send" id="bopen">เปิดแชทสานบุญ ›</button>
+    </div>
   </form>
 </section>
 
@@ -304,8 +315,21 @@ document.getElementById('f').addEventListener('submit',function(e){
   msg+='\n\n— ร่วมถวาย —\nกรุงศรีอยุธยา\nบจก. ยูนิคอร์น (เอเชีย)\n438-1-23464-7';
   msg+=self?'\n(รอเราแจ้งค่าส่งในแชทก่อนโอน)':'\nโอนแล้วแนบสลิปในแชทนี้ 🙏';
   }else msg+='\n\nสาธุ 🙏';
-  location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);
+  showBackup(msg);
+  setTimeout(function(){location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);},700);
 });
+function copyText(t){
+  try{if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(t);}}catch(e){}
+  var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.position='absolute';a.style.left='-9999px';document.body.appendChild(a);a.select();
+  try{document.execCommand('copy');}catch(e){}document.body.removeChild(a);return Promise.resolve();
+}
+function showBackup(msg){
+  copyText(msg);
+  document.getElementById('bmsg').textContent=msg;
+  var b=document.getElementById('backup');b.style.display='block';b.scrollIntoView({behavior:'smooth'});
+  document.getElementById('bcopy').onclick=function(){var x=this;copyText(msg).then(function(){x.textContent='คัดลอกแล้ว ✓';setTimeout(function(){x.textContent='คัดลอกข้อความอีกครั้ง';},1800);});};
+  document.getElementById('bopen').onclick=function(){location.href='https://line.me/R/ti/p/%40917ytacj';};
+}
 load(); update();
 </script>
 </body>
