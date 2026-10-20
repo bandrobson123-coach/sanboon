@@ -168,6 +168,9 @@ footer{padding:28px 0 44px;text-align:center;font-size:14px;color:var(--muted)}
         </optgroup>
       </select>
     </label>
+    <div class="f" id="tokPlace" style="display:none;font-weight:600">ตอกบูชาไปที่ไหน
+      <p style="margin:6px 0 0;font-weight:400">มอบให้ช่างกลุ่มจักสาน <b>แม่โขง แบมบู คราฟ</b> ทุกสิ้นเดือน · ไม่ต้องเลือกวัด · ส่งภาพตอกถึงมือช่างกลับให้คุณ</p>
+    </div>
     <div id="addrWrap" style="display:none;gap:12px">
       <label class="f">ชื่อผู้รับ<input type="text" id="rname" maxlength="80"></label>
       <label class="f">เบอร์โทร<input type="text" id="rphone" maxlength="20" inputmode="tel"></label>
@@ -266,6 +269,7 @@ function update(){
   document.getElementById('howWrap').style.display=chosen?'grid':'none';
   document.getElementById('placeWrap').style.display=(chosen&&!self)?'grid':'none';
   document.getElementById('addrWrap').style.display=self?'grid':'none';
+  document.getElementById('tokPlace').style.display=(tok>0&&!chosen)?'grid':'none';
   document.getElementById('shipnote').style.display=self?'block':'none';
   document.getElementById('err').textContent='';
 }
