@@ -50,7 +50,10 @@ details[open] .more{margin-top:8px;background:var(--card);border:1px solid var(-
 .field{display:grid;gap:4px;font-weight:600;font-size:15px}
 .amount{display:flex;align-items:center;gap:8px}
 .amount input{flex:1;min-width:0;font:700 20px "Sarabun",sans-serif;text-align:center;padding:8px}
-input[type=text],input[type=number]{font:17px "Sarabun",sans-serif;padding:9px 11px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);width:100%}
+input[type=text],input[type=number]{font:17px "Sarabun",sans-serif;padding:10px 12px;border:2px solid var(--gold);border-radius:12px;background:#fff;color:var(--ink);width:100%;box-shadow:inset 0 2px 4px rgba(92,58,30,.12)}
+input[type=text]::placeholder,input[type=number]::placeholder{color:#B08A5A;opacity:1}
+input[type=text]:focus,input[type=number]:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(6,199,85,.25)}
+input[type=number]{-moz-appearance:textfield}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .ok{display:flex;gap:10px;align-items:center;font-size:15px;color:var(--brown)}
 .ok input{width:20px;height:20px;accent-color:#C8892B}
 .err{color:#A32D2D;font-size:14px;min-height:1em}
@@ -114,9 +117,9 @@ input[type=text],input[type=number]{font:17px "Sarabun",sans-serif;padding:9px 1
       <button type="button" data-a="499">499</button>
     </div>
     <button type="button" class="host" data-a="2500">เจ้าภาพทั้งใบ 2,500</button>
-    <label class="amount field">ตามศรัทธา <input type="number" id="amt" inputmode="numeric" min="1" placeholder="0"> บาท</label>
+    <label class="amount field">ตามศรัทธา <input type="number" id="amt" inputmode="numeric" min="1" placeholder="✎ พิมพ์ตัวเลข"> บาท</label>
     <label class="field">ชื่อที่จะเอ่ยถวาย
-      <input type="text" id="name" placeholder="เช่น คุณแม่… พร้อมครอบครัว">
+      <input type="text" id="name" placeholder="✎ พิมพ์ชื่อ เช่น คุณแม่… พร้อมครอบครัว">
     </label>
     <label class="ok"><input type="checkbox" id="show" checked> ขึ้นชื่อบนการ์ดใบนี้</label>
     <div class="err" id="err"></div>
