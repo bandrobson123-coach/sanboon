@@ -32,6 +32,18 @@ summary::-webkit-details-marker{display:none}
 details[open] .i{transform:rotate(225deg);margin-bottom:-2px}
 details[open] .more{margin-top:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:15px;color:var(--brown)}
 .more p+p{margin-top:6px}
+.facts{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:10px}
+.facts th{width:4.2em;text-align:left;vertical-align:top;color:var(--muted);font-weight:600;padding:6px 8px 6px 0;white-space:nowrap}
+.facts td{padding:6px 0;color:var(--ink)}
+.facts tr+tr th,.facts tr+tr td{border-top:1px solid var(--line)}
+.spec{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:8px 0}
+.spec span{background:#fff;border:1px solid var(--line);border-radius:10px;text-align:center;font-size:13px;color:var(--muted);padding:6px 0}
+.spec b{display:block;font-size:20px;color:var(--ink)}
+.gal{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+.gal figure{flex:0 0 62%;scroll-snap-align:start;margin:0}
+.gal img{width:100%;height:300px;object-fit:contain;border-radius:10px;display:block;background:var(--line)}
+.gal figcaption{font-size:13px;color:var(--muted);text-align:center;margin-top:2px}
+.hint{font-size:12px;color:var(--muted);text-align:right}
 .prog{margin-top:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
 .prow{display:flex;justify-content:space-between;align-items:baseline}
 .prow b{font-size:18px}
@@ -84,8 +96,20 @@ input[type=number]{-moz-appearance:textfield}input::-webkit-outer-spin-button,in
   <details>
     <summary><span style="color:var(--brown);font-weight:400;font-size:17px">ของถึงมือพระ ได้ใช้จริง</span><span class="i"></span></summary>
     <div class="more">
-      <p>ซองไผ่สานลายขิดอเนกประสงค์ ใส่โทรศัพท์ เอกสารสำคัญ และของใช้ส่วนตัว</p>
-      <p>ออกแบบและผลิตโดย SPEORG · ช่างหัตถศิลป์ที่ฝึกเฉพาะทาง</p>
+      <table class="facts">
+        <tr><th>ชื่อ</th><td>ซองลายขิดอเนกประสงค์</td></tr>
+        <tr><th>ใช้ใส่</th><td>โทรศัพท์ · เอกสารสำคัญ · ของใช้ส่วนตัว</td></tr>
+        <tr><th>งาน</th><td>ไผ่สานลายขิดด้วยมือ 2 สี · ลายดอกในกรอบข้าวหลามตัด · ฝาพับปิด · ขอบเย็บมือ</td></tr>
+        <tr><th>ผู้ทำ</th><td>ช่างที่ผ่านการฝึกเฉพาะทาง · แบรนด์ SPEORG</td></tr>
+        <tr><th>ขนาด</th><td>กว้าง 11 × ยาว 17.5 × หนา 1.5 ซม.</td></tr>
+        <tr><th>มูลค่า</th><td>2,500 ฿/ใบ · กองบูชา 4 ใบ 10,000 ฿ · 90 วัน</td></tr>
+      </table>
+      <div class="gal">
+        <figure><img src="sangha-front.jpg" alt="ด้านหน้า" loading="lazy"><figcaption>ด้านหน้า</figcaption></figure>
+        <figure><img src="sangha-angle.jpg" alt="มุมเฉียง" loading="lazy"><figcaption>มุมเฉียง</figcaption></figure>
+        <figure><img src="sangha-side.jpg" alt="ด้านข้าง" loading="lazy"><figcaption>ด้านข้าง · ความหนา</figcaption></figure>
+      </div>
+      <p class="hint">ปัดซ้าย-ขวา เพื่อดูภาพถัดไป ›</p>
       <p>ถวายพระอาจารย์ วัดป่า ในจังหวัดสกลนคร</p>
     </div>
   </details>
@@ -121,7 +145,6 @@ input[type=number]{-moz-appearance:textfield}input::-webkit-outer-spin-button,in
     <label class="field">ชื่อที่จะเอ่ยถวาย
       <input type="text" id="name" placeholder="✎ พิมพ์ชื่อ เช่น คุณแม่… พร้อมครอบครัว">
     </label>
-    <label class="ok"><input type="checkbox" id="show" checked> ขึ้นชื่อบนการ์ดใบนี้</label>
     <div class="err" id="err"></div>
     <button type="submit" class="send" id="go">ส่งเจตนาเข้าไลน์ ›</button>
     <div class="closed" id="closed">ครบ 4 ใบแล้ว · ปิดกอง · อนุโมทนาสาธุ 🙏</div>
@@ -209,7 +232,7 @@ document.getElementById('f').addEventListener('submit',function(e){
   if(!name){err.textContent='ใส่ชื่อที่จะเอ่ยถวายก่อน';document.getElementById('name').focus();return;}
   var d=new Date(),p2=function(n){return ('0'+n).slice(-2);};
   var code='S'+p2(d.getMonth()+1)+p2(d.getDate())+'-'+(1000+Math.floor(Math.random()*9000));
-  var msg='🙏 สังฆบูชา · ซองลายขิดอเนกประสงค์ ถวายพระอาจารย์\nเลขที่ #'+code+'\nร่วมถวาย: '+current.name+'\nยอด: '+fmt(a)+' บาท'+(a>=GOAL?' (เจ้าภาพทั้งใบ)':'')+'\nเอ่ยถวายในนาม: '+name+'\nขึ้นชื่อบนการ์ด: '+(document.getElementById('show').checked?'ได้':'ผู้ไม่ประสงค์ออกนาม');
+  var msg='🙏 สังฆบูชา · ซองลายขิดอเนกประสงค์ ถวายพระอาจารย์\nเลขที่ #'+code+'\nร่วมถวาย: '+current.name+'\nยอด: '+fmt(a)+' บาท'+(a>=GOAL?' (เจ้าภาพทั้งใบ)':'')+'\nเอ่ยถวายในนาม: '+name;
   msg+='\n\n— ร่วมถวาย —\nกรุงศรีอยุธยา\nบจก. ยูนิคอร์น (เอเชีย)\n438-1-23464-7\nโอนแล้วแนบสลิปในแชทนี้ 🙏';
   copyText(msg);
   document.getElementById('bmsg').textContent=msg;
