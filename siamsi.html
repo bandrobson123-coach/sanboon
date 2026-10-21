@@ -246,7 +246,6 @@ function listen(){
 listen();
 (function(){var q=location.search.match(/bai=(\d+)/),f=null;
   if(q){var n=+q[1],c=Math.floor(n/10),p=n%10;f=(c-1)*10+(p===0?10:p);}
-  else{try{var l=JSON.parse(localStorage.getItem('siamsi_last')||'null');if(l&&Date.now()-l.t<6*3600e3)f=l.f;}catch(e){}}
   if(f&&f>=1&&f<=60){cur=info(f);show();}
 })();
 document.getElementById('stage').addEventListener('click',function(){enableMotion();draw();});
