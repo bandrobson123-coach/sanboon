@@ -91,6 +91,7 @@ footer{text-align:center;font-size:13px;color:var(--muted);margin-top:24px}
 @keyframes bob{to{transform:translate(6px,-3px) rotate(20deg)}}
 .vara{margin-top:22px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--brown);font-size:14px}.vara small{display:block;color:var(--muted);font-size:13px}.vara b{display:block;color:var(--red);font-size:19px}
 footer{line-height:1.7}
+#step5{display:none}
 </style>
 </head>
 <body>
@@ -144,8 +145,8 @@ footer{line-height:1.7}
 
   <div id="after">
     <div class="done" id="done"><b>น้ำพาไปแล้ว</b>สิ่งที่หนัก ลอยไปกับสายน้ำ สู่หนองหาร</div>
-    <div class="act">5 ปลูกไว้ในใจ หายใจสบายๆ</div>
-    <div class="breath"><div class="orb" id="orb"></div><div class="btxt" id="btxt">หายใจเข้า</div></div>
+    <div id="step5"><div class="act">5 หายใจตามลูกบอล 3 รอบ · ปลูกไว้ในใจ หายใจสบายๆ</div>
+    <div class="breath"><div class="orb" id="orb"></div><div class="btxt" id="btxt">หายใจเข้า</div></div></div>
     <div class="dhamma" id="dhamma">
       <small>ธรรมะวันนี้</small>
       <p id="dtext"></p>
@@ -241,7 +242,10 @@ function pour(){
   setTimeout(function(){stage.classList.remove('pouring');waterOff();},7600);
   setTimeout(function(){$('txt').value='';$('stickTxt').textContent='';stick.style.display='none';
     $('after').style.display='block';$('done').style.display='block';$('dhamma').style.display='none';
-    window.scrollTo({top:$('after').offsetTop-60,behavior:'smooth'});breathe(0);},8800);
+    $('step5').style.display='none';
+    window.scrollTo({top:$('after').offsetTop-60,behavior:'smooth'});
+    var wait=(ac&&!mute)?(5200+20000+4000-8800):4000;
+    setTimeout(function(){$('step5').style.display='block';$('step5').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){breathe(0);},1200);},wait);},8800);
 }
 function breathe(n){
   var o=$('orb'),t=$('btxt');
