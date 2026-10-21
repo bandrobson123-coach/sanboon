@@ -61,10 +61,10 @@ h1{font-size:30px;line-height:1.25;text-align:center;margin-top:4px;color:var(--
 .lock{font-size:13px;color:var(--muted);margin-top:6px;text-align:center}
 #pourBox,#after{display:none}
 .done{display:none;text-align:center;margin-top:14px;font-size:16px;color:var(--brown)}.done b{display:block;font-size:20px;color:#2F7F94}
-.breath{position:relative;height:190px;display:flex;align-items:center;justify-content:center}
-.orb{width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#FFF3C9,#E8C26A 70%);box-shadow:0 0 40px #F3D68A;transition:transform 4s ease-in-out}
+.breath{position:relative;height:220px;display:flex;align-items:center;justify-content:center}
+.orb{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,#FFF3C9,#E8C26A 70%);box-shadow:0 0 40px #F3D68A;transition:transform 4s ease-in-out}
 .orb.in{transform:scale(2.2)}
-.btxt{position:absolute;font-weight:700;color:var(--brown);font-size:17px}
+.btxt{position:absolute;font-weight:700;color:var(--brown);font-size:17px;text-align:center;line-height:1.3}.btxt b{display:block;font-size:30px}.btxt small{display:block;font-size:12px;font-weight:400;color:var(--muted)}
 .dhamma{display:none;background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:14px;text-align:center}
 .dhamma small{display:block;color:var(--muted);font-size:13px}
 .dhamma p{font-size:21px;font-weight:700;color:var(--red);line-height:1.5;margin:4px 0 8px}
@@ -89,6 +89,8 @@ footer{text-align:center;font-size:13px;color:var(--muted);margin-top:24px}
 @keyframes drift{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--dx,200px),var(--wy,4px)) rotate(var(--r,90deg));opacity:0}}
 .float{position:absolute;animation:bob 3s ease-in-out infinite alternate}
 @keyframes bob{to{transform:translate(6px,-3px) rotate(20deg)}}
+.vara{margin-top:22px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--brown);font-size:14px}.vara small{display:block;color:var(--muted);font-size:13px}.vara b{display:block;color:var(--red);font-size:19px}
+footer{line-height:1.7}
 </style>
 </head>
 <body>
@@ -171,7 +173,8 @@ footer{text-align:center;font-size:13px;color:var(--muted);margin-top:24px}
     <div class="more"><p>สิ่งที่คุณเขียนอยู่ในมือถือของคุณเท่านั้น เมื่อน้ำพาไป ข้อความก็หายไปจริง สานบุญไม่เห็น ไม่เก็บ เพื่อให้ใจกล้าวางเรื่องจริงลงได้</p></div>
   </details>
 
-  <footer>มาสรงน้ำได้ทุกเมื่อที่ใจต้องการ · LINE สานบุญ @917ytacj</footer>
+  <div class="vara"><small>วาระนี้ อัญเชิญ</small><b>พระพุทธรูปสมัยทวารวดี</b>วัดมหาพรหมโพธิราช บ้านท่าวัดเหนือ</div>
+  <footer>มาสรงน้ำได้ทุกเมื่อที่ใจต้องการ<br>วาระหน้า จะอัญเชิญองค์ใหม่มาให้สรงน้ำร่วมกัน<br>LINE สานบุญ @917ytacj</footer>
 </div>
 
 <script>
@@ -200,11 +203,21 @@ function waterOn(){
 }
 function waterOff(){if(!wgain)return;try{wgain.gain.cancelScheduledValues(ac.currentTime);wgain.gain.setValueAtTime(wgain.gain.value,ac.currentTime);wgain.gain.linearRampToValueAtTime(0,ac.currentTime+2.5);var s=wsrc;setTimeout(function(){try{s.stop();}catch(e){}},2800);}catch(e){}wgain=null;}
 function bell(){
-  if(!ac||mute)return;try{var t=ac.currentTime,base=196;
-  [[1,.5,7],[2.76,.22,5],[5.4,.12,3],[8.93,.06,2],[1.005,.3,7]].forEach(function(p){
-    var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=base*p[0];
-    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(p[1]*.5,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+p[2]);
-    o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+p[2]+.1);});}catch(e){}
+  if(!ac||mute)return;try{var t=ac.currentTime,base=174;
+  var out=ac.createGain();out.gain.value=.9;
+  // simple reverb
+  var len=ac.sampleRate*5,ir=ac.createBuffer(2,len,ac.sampleRate);
+  for(var c=0;c<2;c++){var d=ir.getChannelData(c);for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3);}
+  var cv=ac.createConvolver();cv.buffer=ir;var wet=ac.createGain();wet.gain.value=.35;
+  out.connect(ac.destination);out.connect(cv);cv.connect(wet);wet.connect(ac.destination);
+  [[1,.42,22],[2.71,.2,15],[5.15,.09,9],[8.1,.04,5]].forEach(function(p,k){
+    [0,.6+k*.3].forEach(function(det){
+      var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=base*p[0]+det;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(p[1]*.35,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+p[2]);
+      o.connect(g);g.connect(out);o.start(t);o.stop(t+p[2]+.2);});
+  });
+  var lfo=ac.createOscillator(),lg=ac.createGain();lfo.frequency.value=2.2;lg.gain.value=.12;lfo.connect(lg);lg.connect(out.gain);lfo.start(t);lfo.stop(t+22);
+  }catch(e){}
 }
 $('snd').addEventListener('click',function(e){e.stopPropagation();mute=!mute;this.textContent=mute?'🔇':'🔊';if(mute)waterOff();});
 $('placeBtn').addEventListener('click',function(){
@@ -232,9 +245,17 @@ function pour(){
 }
 function breathe(n){
   var o=$('orb'),t=$('btxt');
-  if(n>=3){t.textContent='เป็นเช่นนั้น';o.classList.remove('in');showDhamma();busy=false;return;}
-  t.textContent='หายใจเข้า '+(n+1);o.classList.add('in');
-  setTimeout(function(){t.textContent='หายใจออก';o.classList.remove('in');setTimeout(function(){breathe(n+1);},4200);},4200);
+  if(n>=3){t.innerHTML='เป็นเช่นนั้น';o.style.transition='transform 3s ease-in-out';o.classList.remove('in');showDhamma();busy=false;return;}
+  var ph=[['หายใจเข้า',5,'in'],['หยุด',5,'hold'],['หายใจออกยาว',7,'out']],i=0;
+  function phase(){
+    if(i>=ph.length){breathe(n+1);return;}
+    var p=ph[i],sec=p[1];
+    if(p[2]==='in'){o.style.transition='transform '+sec+'s ease-in-out';o.classList.add('in');}
+    if(p[2]==='out'){o.style.transition='transform '+sec+'s ease-in-out';o.classList.remove('in');}
+    (function tick(){t.innerHTML=p[0]+'<b>'+sec+'</b><small>รอบ '+(n+1)+' / 3</small>';
+      if(sec<=1){setTimeout(function(){i++;phase();},1000);return;}sec--;setTimeout(tick,1000);})();
+  }
+  phase();
 }
 function showDhamma(){var d=new Date(),start=new Date(d.getFullYear(),0,0),day=Math.floor((d-start)/864e5);
   $('dtext').textContent=DH[day%DH.length];$('dhamma').style.display='block';}
