@@ -80,6 +80,11 @@ input[type=number]{-moz-appearance:textfield}input::-webkit-outer-spin-button,in
 .acc small{display:block;font-size:13px;color:var(--muted)}
 .acc b{font-size:19px;letter-spacing:.5px}
 .acc button{font:700 15px "Sarabun",sans-serif;border:0;border-radius:20px;background:var(--gold);color:#fff;padding:8px 12px;cursor:pointer;white-space:nowrap}
+#amt::placeholder{font-size:15px;font-weight:400}
+#name::placeholder{font-size:15px}
+.amount{flex-wrap:nowrap;min-width:0}
+.decide{min-width:0;overflow:hidden}
+.amount input{width:0;min-width:0;flex:1}
 #backup{display:none;padding:14px;border:2px solid var(--green);border-radius:14px;background:#fff}
 #backup b{display:block;font-size:17px;margin-bottom:6px}
 #backup pre{white-space:pre-wrap;font:15px/1.6 "Sarabun",sans-serif;background:#f4f4f4;padding:10px;border-radius:10px;margin:8px 0;max-height:220px;overflow:auto}
@@ -143,7 +148,7 @@ input[type=number]{-moz-appearance:textfield}input::-webkit-outer-spin-button,in
     <button type="button" class="host" data-a="2500">เจ้าภาพทั้งใบ 2,500</button>
     <label class="amount field">ตามศรัทธา <input type="number" id="amt" inputmode="numeric" min="1" placeholder="✎ พิมพ์ตัวเลข"> บาท</label>
     <label class="field">ชื่อที่จะเอ่ยถวาย
-      <input type="text" id="name" placeholder="✎ พิมพ์ชื่อ เช่น คุณแม่… พร้อมครอบครัว">
+      <input type="text" id="name" placeholder="✎ พิมพ์ชื่อ เช่น คุณแม่…">
     </label>
     <div class="err" id="err"></div>
     <button type="submit" class="send" id="go">ส่งเจตนาเข้าไลน์ ›</button>
