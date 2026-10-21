@@ -126,7 +126,9 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
 
     <div id="goodBox">
       <div class="act">3 เก็บใบเซียมซีนี้ · นำติดตัวกลับไปได้</div>
-      <div class="howsave">👆 <b>กดค้างที่ภาพ</b> แล้วเลือก "บันทึกรูป"</div>
+      <a class="pick main" id="saveBtn" href="#">
+        <span class="ic">📥</span><span><b>บันทึกรูปลงเครื่อง</b><small>เปิดภาพ แล้วกดค้างที่ภาพ เลือก "บันทึกรูป"</small></span>
+      </a>
       <button type="button" class="pick main" id="shareBtn" style="display:none">
         <span class="ic">🌕</span><span><b>แชร์ใบเซียมซีนี้</b><small>ส่งให้คนที่รัก หรือบันทึกลงเครื่อง</small></span>
       </button>
@@ -190,6 +192,7 @@ function show(){
   document.getElementById('badBox').style.display=cur.bad?'block':'none';
   try{localStorage.setItem('siamsi_last',JSON.stringify({f:cur.file,t:Date.now()}));}catch(e){}
   document.getElementById('shareBtn').style.display=(navigator.share&&navigator.canShare)?'flex':'none';
+  setSave();
   document.getElementById('floater').src=src;
   document.getElementById('lake').classList.remove('show');document.getElementById('floater').classList.remove('go');
   document.getElementById('letgoDone').style.display='none';document.getElementById('letgoBtn').style.display='flex';
@@ -237,9 +240,15 @@ document.getElementById('askBtn').addEventListener('click',function(){
   var m=document.getElementById('meaning');m.innerHTML=meaningHTML(cur.no);m.style.display='block';this.style.display='none';
   m.scrollIntoView({behavior:'smooth',block:'start'});
 });
+function setSave(){
+  var u=location.origin+'/siamsi/s'+cur.file+'.jpg',a=document.getElementById('saveBtn');
+  if(/ Line\//i.test(navigator.userAgent)){a.href=u+'?openExternalBrowser=1';a.removeAttribute('download');a.target='_self';}
+  else{a.href=u;a.setAttribute('download','siamsi-'+cur.no+'.jpg');a.target='_blank';}
+}
+document.getElementById('cardImg').addEventListener('click',function(){if(!cur.bad)document.getElementById('saveBtn').click();});
 document.getElementById('again').addEventListener('click',function(){
   try{localStorage.removeItem('siamsi_last');}catch(e){}
-  document.getElementById('result').style.display='none';document.getElementById('backup').style.display='none';
+  document.getElementById('result').style.display='none';busy=false;
   document.getElementById('draw').style.display='block';document.getElementById('stick').classList.remove('out');
   window.scrollTo({top:0,behavior:'smooth'});
 });
