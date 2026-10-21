@@ -92,6 +92,18 @@ footer{text-align:center;font-size:13px;color:var(--muted);margin-top:24px}
 .vara{margin-top:22px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--brown);font-size:14px}.vara small{display:block;color:var(--muted);font-size:13px}.vara b{display:block;color:var(--red);font-size:19px}
 footer{line-height:1.7}
 #step5{display:none}
+.pick{position:relative}
+.pick .tap{position:absolute;right:14px;top:-34px;display:flex;align-items:center;gap:4px;font-size:28px;line-height:1;animation:tap 1s ease-in-out infinite;pointer-events:none}
+.pick .tap em{font-style:normal;font-size:13px;font-weight:700;color:#048A3B;background:#fff;border:1.5px solid var(--green);border-radius:10px;padding:2px 8px;white-space:nowrap}
+.pick[disabled] .tap{visibility:hidden}
+@keyframes tap{50%{transform:translateY(7px)}}
+.howto{background:#fff;border:2.5px solid var(--green);border-radius:16px;padding:12px;text-align:center;color:var(--brown)}
+.howto>b{display:block;font-size:19px;color:#048A3B}
+.howto small{display:block;font-size:14px;color:var(--muted);margin-top:6px}
+.rhythm{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}
+.rhythm span{background:#EAF8EF;border-radius:12px;padding:6px 2px;font-size:14px;line-height:1.3}.rhythm b{font-size:24px;color:#048A3B}
+#startBtn{margin-top:4px}
+#placeBtn,#pourBtn,#startBtn{margin-top:40px}
 </style>
 </head>
 <body>
@@ -132,21 +144,25 @@ footer{line-height:1.7}
 
     <div class="act">3 กดวางแท่งไม้บนรางไผ่</div>
     <button type="button" class="pick main" id="placeBtn" disabled>
-      <span class="ic">🎋</span><span><b>วางแท่งไม้บนรางไผ่</b><small id="placeSm">เลือกแท่งไม้ไผ่ในข้อ 1 ก่อน</small></span>
+      <span class="ic">🎋</span><span><b>วางแท่งไม้บนรางไผ่</b><small id="placeSm">เลือกแท่งไม้ไผ่ในข้อ 1 ก่อน</small></span><span class="tap"><em>กดตรงนี้</em>👇</span>
     </button>
   </div>
 
   <div id="pourBox">
     <div class="act">4 ปัดนิ้วลงที่ภาพ หรือ แตะปุ่ม เพื่อสรงน้ำ</div>
     <button type="button" class="pick main" id="pourBtn">
-      <span class="ic">💧</span><span><b>สรงน้ำ</b><small>ให้น้ำชำระ พาแท่งไม้ลอยไป</small></span>
+      <span class="ic">💧</span><span><b>สรงน้ำ</b><small>ให้น้ำชำระ พาแท่งไม้ลอยไป</small></span><span class="tap"><em>กดตรงนี้</em>👇</span>
     </button>
   </div>
 
   <div id="after">
     <div class="done" id="done"><b>น้ำพาไปแล้ว</b>สิ่งที่หนัก ลอยไปกับสายน้ำ สู่หนองหาร</div>
     <div id="step5"><div class="act">5 หายใจตามลูกบอล 3 รอบ · ปลูกไว้ในใจ หายใจสบายๆ</div>
-    <div class="breath"><div class="orb" id="orb"></div><div class="btxt" id="btxt">หายใจเข้า</div></div></div>
+    <div class="howto"><b>หายใจสบายๆ เป็นจังหวะ 5-5-7</b>
+      <div class="rhythm"><span>เข้า<br><b>5</b> วิ</span><span>หยุด<br><b>5</b> วิ</span><span>ออกยาว<br><b>7</b> วิ</span></div>
+      <small>นั่งให้สบาย หลังตรง ผ่อนไหล่ วางมือถือตรงหน้า</small></div>
+    <div class="breath"><div class="orb" id="orb"></div><div class="btxt" id="btxt">ตั้งท่า<br>ให้สบาย</div></div>
+    <button type="button" class="pick main" id="startBtn"><span class="ic">🌕</span><span><b>เรามาเริ่มกันเลย</b><small>ลูกบอลจะพาหายใจ 3 รอบ</small></span><span class="tap"><em>กดตรงนี้</em>👇</span></button></div>
     <div class="dhamma" id="dhamma">
       <small>ธรรมะวันนี้</small>
       <p id="dtext"></p>
@@ -204,20 +220,18 @@ function waterOn(){
 }
 function waterOff(){if(!wgain)return;try{wgain.gain.cancelScheduledValues(ac.currentTime);wgain.gain.setValueAtTime(wgain.gain.value,ac.currentTime);wgain.gain.linearRampToValueAtTime(0,ac.currentTime+2.5);var s=wsrc;setTimeout(function(){try{s.stop();}catch(e){}},2800);}catch(e){}wgain=null;}
 function bell(){
-  if(!ac||mute)return;try{var t=ac.currentTime,base=174;
-  var out=ac.createGain();out.gain.value=.9;
-  // simple reverb
-  var len=ac.sampleRate*5,ir=ac.createBuffer(2,len,ac.sampleRate);
-  for(var c=0;c<2;c++){var d=ir.getChannelData(c);for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3);}
-  var cv=ac.createConvolver();cv.buffer=ir;var wet=ac.createGain();wet.gain.value=.35;
+  if(!ac||mute)return;try{var t=ac.currentTime,base=174,END=24;
+  var out=ac.createGain();out.gain.setValueAtTime(.9,t);out.gain.setValueAtTime(.9,t+END-4);out.gain.linearRampToValueAtTime(0,t+END);
+  var len=ac.sampleRate*4,ir=ac.createBuffer(2,len,ac.sampleRate);
+  for(var c=0;c<2;c++){var d=ir.getChannelData(c);for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,4);}
+  var cv=ac.createConvolver();cv.buffer=ir;var wet=ac.createGain();wet.gain.value=.3;
   out.connect(ac.destination);out.connect(cv);cv.connect(wet);wet.connect(ac.destination);
-  [[1,.42,22],[2.71,.2,15],[5.15,.09,9],[8.1,.04,5]].forEach(function(p,k){
-    [0,.6+k*.3].forEach(function(det){
+  [[1,.42,5.5],[2.71,.2,3.5],[5.15,.09,2],[8.1,.04,1.2]].forEach(function(p,k){
+    [[0,1],[.25+k*.15,.25]].forEach(function(dv){var det=dv[0];
       var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=base*p[0]+det;
-      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(p[1]*.35,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+p[2]);
-      o.connect(g);g.connect(out);o.start(t);o.stop(t+p[2]+.2);});
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(p[1]*.4*dv[1],t+.015);g.gain.setTargetAtTime(0,t+.015,p[2]);
+      o.connect(g);g.connect(out);o.start(t);o.stop(t+END+.5);});
   });
-  var lfo=ac.createOscillator(),lg=ac.createGain();lfo.frequency.value=2.2;lg.gain.value=.12;lfo.connect(lg);lg.connect(out.gain);lfo.start(t);lfo.stop(t+22);
   }catch(e){}
 }
 $('snd').addEventListener('click',function(e){e.stopPropagation();mute=!mute;this.textContent=mute?'🔇':'🔊';if(mute)waterOff();});
@@ -244,8 +258,7 @@ function pour(){
     $('after').style.display='block';$('done').style.display='block';$('dhamma').style.display='none';
     $('step5').style.display='none';
     window.scrollTo({top:$('after').offsetTop-60,behavior:'smooth'});
-    var wait=(ac&&!mute)?(5200+20000+4000-8800):4000;
-    setTimeout(function(){$('step5').style.display='block';$('step5').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){breathe(0);},1200);},wait);},8800);
+    setTimeout(function(){$('step5').style.display='block';$('startBtn').style.display='flex';$('btxt').innerHTML='ตั้งท่า<br>ให้สบาย';$('step5').scrollIntoView({behavior:'smooth',block:'start'});},3500);},8800);
 }
 function breathe(n){
   var o=$('orb'),t=$('btxt');
@@ -269,7 +282,7 @@ stage.addEventListener('pointerdown',function(e){if(ready)sy=e.clientY;});
 stage.addEventListener('pointermove',function(e){if(ready&&sy!==null&&e.clientY-sy>40){sy=null;pour();}});
 stage.addEventListener('pointerup',function(){sy=null;});
 $('again').addEventListener('click',function(){
-  if(busy)return;$('after').style.display='none';$('prep').style.display='block';kind=null;
+  if(busy)return;$('after').style.display='none';$('step5').style.display='none';$('dhamma').style.display='none';$('prep').style.display='block';kind=null;
   document.querySelectorAll('.st').forEach(function(x){x.classList.remove('on');});
   $('placeBtn').disabled=true;$('placeSm').textContent='เลือกแท่งไม้ไผ่ในข้อ 1 ก่อน';
   window.scrollTo({top:0,behavior:'smooth'});
@@ -286,6 +299,8 @@ function spawn(g){
     e.style.setProperty('--dx',(60+Math.random()*(g.w-x))+'px');e.style.setProperty('--wy',(Math.random()*10-5)+'px');e.style.setProperty('--d',(7+Math.random()*5)+'s');
     setTimeout(function(){e.remove();},12500);},d*1000);
 }
+
+$('startBtn').addEventListener('click',function(){this.style.display='none';$('btxt').innerHTML='เรามาเริ่มกันเลย';setTimeout(function(){breathe(0);},1500);});
 </script>
 </body>
 </html>
