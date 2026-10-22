@@ -108,6 +108,9 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
 @keyframes ring{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(7)}}
 .rung{display:none;text-align:center;font-weight:700;color:#048A3B;margin-top:10px}
 .mentor.sbox{display:block}
+.stap .phone{font-style:normal;display:inline-block;animation:wig .35s ease-in-out infinite alternate}
+@keyframes wig{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}
+.stap{animation:none}
 </style>
 </head>
 <body>
@@ -228,7 +231,7 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
     <div class="rung" id="rung">🔔 กระดิ่งดังแล้ว · เลื่อนลงไปข้อ 2</div>
    </div>
    <div class="sbox" id="box2">
-    <div class="shead">2 เขย่ามือถือ หรือ แตะที่ภาพ<small>กระบอกเซียมซีจะส่งใบมาหาคุณ</small></div>
+    <div class="shead">2 เขย่ามือถือ หรือ เขย่าที่ภาพ<small>ใช้นิ้วถูไปมาที่กระบอก หรือแตะ 1 ครั้งก็ได้</small></div>
     <div class="stage" id="stage" role="button" aria-label="เสี่ยงเซียมซี">
       <svg id="tube" viewBox="0 0 150 230" aria-hidden="true">
         <rect x="52" y="6" width="9" height="70" rx="3" fill="#E9C98F" stroke="#B8873E" stroke-width="2" transform="rotate(-8 56 76)"/>
@@ -241,8 +244,8 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
         <rect x="30" y="56" width="90" height="12" rx="6" fill="#E5562A"/>
       </svg>
       <div id="stick"></div>
-      <div class="hint" id="hint">เขย่ามือถือ หรือ แตะที่ภาพ<small>iPhone จะถามขออนุญาต 1 ครั้ง กด "อนุญาต"</small></div>
-      <span class="stap"><em>แตะที่นี่</em>👇</span>
+      <div class="hint" id="hint">เขย่ามือถือ หรือ ถูนิ้วไปมาที่กระบอก<small>iPhone จะถามขออนุญาต 1 ครั้ง กด "อนุญาต"</small></div>
+      <span class="stap"><em>เขย่าที่นี่ · เขย่าโทรศัพท์</em><i class="phone">📳</i></span>
     </div>
    </div>
   </div>
@@ -344,7 +347,7 @@ listen();
   if(q){var n=+q[1],c=Math.floor(n/10),p=n%10;f=(c-1)*10+(p===0?10:p);}
   if(f&&f>=1&&f<=60){cur=info(f);show();}
 })();
-document.getElementById('stage').addEventListener('click',function(){enableMotion();draw();});
+document.getElementById('stage').addEventListener('click',function(){if(this._swiped&&Date.now()-this._swiped<1500)return;enableMotion();draw();});
 document.getElementById('letgoBtn').addEventListener('click',function(){
   this.style.display='none';
   var img=document.getElementById('cardImg');img.style.display='none';
@@ -404,6 +407,22 @@ ba.addEventListener('pointermove',function(e){if(dragX===null)return;var dx=e.cl
 ['pointerup','pointercancel','pointerleave'].forEach(function(ev){ba.addEventListener(ev,function(){dragX=null;});});
 window.addEventListener('devicemotion',function(e){var a=e.accelerationIncludingGravity||e.acceleration;if(!a||rungOnce)return;
   var m=Math.abs(a.x||0)+Math.abs(a.y||0)+Math.abs(a.z||0);if(m>32&&Date.now()-lastRing>600){ringBell(9);lastShake=Date.now();}});
+
+// เขย่าที่ภาพ: ถูนิ้วไปมาที่กระบอก
+(function(){var st=document.getElementById('stage'),lx=null,dir=0,flips=0,moved=0,t0=0;
+  st.style.touchAction='pan-y';
+  st.addEventListener('pointerdown',function(e){lx=e.clientX;dir=0;flips=0;moved=0;t0=Date.now();});
+  st.addEventListener('pointermove',function(e){if(lx===null)return;var dx=e.clientX-lx;if(Math.abs(dx)<4)return;lx=e.clientX;moved+=Math.abs(dx);
+    var d=dx>0?1:-1;if(dir&&d!==dir)flips++;dir=d;
+    var t=document.getElementById('tube');t.style.transform='rotate('+(d*10)+'deg)';
+    if(flips>=3&&moved>120){lx=null;t.style.transform='';st._swiped=Date.now();enableMotion();draw();}});
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){st.addEventListener(ev,function(){lx=null;document.getElementById('tube').style.transform='';});});
+})();
+// ปลูกไว้ในใจ: เสียงกระดิ่งกังวานเมื่อเปิด
+function bigDing(){var a=actx();if(!a)return;var t=a.currentTime,base=880;
+  [[1,.45,5],[2.32,.2,3.2],[4.25,.1,1.8],[6.63,.05,1]].forEach(function(p){[[0,1],[.4,.3]].forEach(function(dv){var o=a.createOscillator(),g=a.createGain();o.type='sine';o.frequency.value=base*p[0]+dv[0];
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(p[1]*.4*dv[1],t+.006);g.gain.setTargetAtTime(0,t+.006,p[2]/4);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+p[2]+.5);});});}
+document.querySelectorAll('details').forEach(function(d){d.addEventListener('toggle',function(){if(d.open)bigDing();});});
 </script>
 </body>
 </html>
