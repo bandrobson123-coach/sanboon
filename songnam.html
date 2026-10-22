@@ -97,13 +97,15 @@ footer{line-height:1.7}
 .pick .tap em{font-style:normal;font-size:13px;font-weight:700;color:#048A3B;background:#fff;border:1.5px solid var(--green);border-radius:10px;padding:2px 8px;white-space:nowrap}
 .pick[disabled] .tap{visibility:hidden}
 @keyframes tap{50%{transform:translateY(7px)}}
-.howto{background:#fff;border:2.5px solid var(--green);border-radius:16px;padding:12px;text-align:center;color:var(--brown)}
-.howto>b{display:block;font-size:19px;color:#048A3B}
-.howto small{display:block;font-size:14px;color:var(--muted);margin-top:6px}
-.rhythm{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}
-.rhythm span{background:#EAF8EF;border-radius:12px;padding:6px 2px;font-size:14px;line-height:1.3}.rhythm b{font-size:24px;color:#048A3B}
+.rhythm{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:6px;margin-top:8px}
+.rhythm span{background:#fff;color:var(--brown);border-radius:12px;padding:6px 2px;font-size:14px;line-height:1.3}.rhythm b{font-size:24px;color:#048A3B}
 #startBtn{margin-top:4px}
-#placeBtn,#pourBtn,#startBtn{margin-top:40px}
+#placeBtn,#pourBtn{margin-top:40px}
+.head5{background:var(--green);color:#fff;border-radius:16px;padding:12px;text-align:center;margin-top:14px;box-shadow:0 3px 0 rgba(6,199,85,.3)}
+.head5>b{display:block;font-size:20px;line-height:1.3}.head5>span{display:block;font-size:15px;color:#E8FFF0}
+.head5 small{display:block;font-size:14px;color:#E8FFF0;margin-top:6px}
+#step5 .breath{height:180px}#step5 .orb{width:72px;height:72px}
+#startBtn{margin-top:34px}
 </style>
 </head>
 <body>
@@ -157,10 +159,10 @@ footer{line-height:1.7}
 
   <div id="after">
     <div class="done" id="done"><b>น้ำพาไปแล้ว</b>สิ่งที่หนัก ลอยไปกับสายน้ำ สู่หนองหาร</div>
-    <div id="step5"><div class="act">5 หายใจตามลูกบอล 3 รอบ · ปลูกไว้ในใจ หายใจสบายๆ</div>
-    <div class="howto"><b>หายใจสบายๆ เป็นจังหวะ 5-5-7</b>
-      <div class="rhythm"><span>เข้า<br><b>5</b> วิ</span><span>หยุด<br><b>5</b> วิ</span><span>ออกยาว<br><b>7</b> วิ</span></div>
-      <small>นั่งให้สบาย หลังตรง ผ่อนไหล่ วางมือถือตรงหน้า</small></div>
+    <div id="step5">
+    <div class="head5"><b>5 เรามาหายใจสบายๆ เป็นจังหวะ</b><span>1 รอบ มีจังหวะ 5-7-3 · ทำ 3 รอบ</span>
+      <div class="rhythm"><span>เข้า<br><b>5</b> วิ</span><span>ออก<br><b>7</b> วิ</span><span>ผ่อนที่ปลายลม<br>สบายๆ <b>3</b> วิ</span></div>
+      <small>นั่งให้สบาย หลังตรง ผ่อนไหล่</small></div>
     <div class="breath"><div class="orb" id="orb"></div><div class="btxt" id="btxt">ตั้งท่า<br>ให้สบาย</div></div>
     <button type="button" class="pick main" id="startBtn"><span class="ic">🌕</span><span><b>เรามาเริ่มกันเลย</b><small>ลูกบอลจะพาหายใจ 3 รอบ</small></span><span class="tap"><em>กดตรงนี้</em>👇</span></button></div>
     <div class="dhamma" id="dhamma">
@@ -258,12 +260,12 @@ function pour(){
     $('after').style.display='block';$('done').style.display='block';$('dhamma').style.display='none';
     $('step5').style.display='none';
     window.scrollTo({top:$('after').offsetTop-60,behavior:'smooth'});
-    setTimeout(function(){$('step5').style.display='block';$('startBtn').style.display='flex';$('btxt').innerHTML='ตั้งท่า<br>ให้สบาย';$('step5').scrollIntoView({behavior:'smooth',block:'start'});},3500);},8800);
+    setTimeout(function(){$('step5').style.display='block';$('startBtn').style.display='flex';$('btxt').innerHTML='ตั้งท่า<br>ให้สบาย';var y=$('step5').getBoundingClientRect().top+window.scrollY-8;window.scrollTo({top:y,behavior:'smooth'});},3500);},8800);
 }
 function breathe(n){
   var o=$('orb'),t=$('btxt');
-  if(n>=3){t.innerHTML='เป็นเช่นนั้น';o.style.transition='transform 3s ease-in-out';o.classList.remove('in');showDhamma();busy=false;return;}
-  var ph=[['หายใจเข้า',5,'in'],['หยุด',5,'hold'],['หายใจออกยาว',7,'out']],i=0;
+  if(n>=3){bell();t.innerHTML='เป็นเช่นนั้น';o.style.transition='transform 3s ease-in-out';o.classList.remove('in');setTimeout(function(){showDhamma();busy=false;},2500);return;}
+  var ph=[['หายใจเข้า',5,'in'],['หายใจออก',7,'out'],['ผ่อนที่ปลายลม',3,'rest']],i=0;
   function phase(){
     if(i>=ph.length){breathe(n+1);return;}
     var p=ph[i],sec=p[1];
@@ -300,7 +302,7 @@ function spawn(g){
     setTimeout(function(){e.remove();},12500);},d*1000);
 }
 
-$('startBtn').addEventListener('click',function(){this.style.display='none';$('btxt').innerHTML='เรามาเริ่มกันเลย';setTimeout(function(){breathe(0);},1500);});
+$('startBtn').addEventListener('click',function(){this.style.display='none';if(ac&&ac.state==='suspended')ac.resume();bell();$('btxt').innerHTML='เรามาเริ่มกันเลย';setTimeout(function(){breathe(0);},3500);});
 </script>
 </body>
 </html>
