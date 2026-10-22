@@ -68,6 +68,10 @@ details[open] .more{margin-top:8px;background:var(--card);border:1px solid var(-
 .floor.lock{opacity:.6}.floor.on{border-color:var(--green);background:#EAF8EF;font-weight:700}.floor.dock{border-style:dashed}
 .safe{margin-top:16px;font-size:13px;color:var(--muted);text-align:center}
 footer{text-align:center;font-size:13px;color:var(--muted);margin-top:16px}
+.tap .kbird{animation:swoop 2.4s ease-in-out infinite}.tap .kbird .wg{transform-origin:18px 12px;animation:flap .3s ease-in-out infinite alternate}
+@keyframes swoop{0%{transform:translate(-30px,-26px) rotate(18deg);opacity:0}30%{opacity:1}55%{transform:translate(0,0) rotate(0)}100%{transform:translate(0,0)}}
+@keyframes flap{to{transform:scaleY(-.6)}}
+.ptr .wg{transform-origin:18px 12px;animation:flap .3s ease-in-out infinite alternate}
 </style>
 </head>
 <body>
@@ -178,7 +182,9 @@ footer{text-align:center;font-size:13px;color:var(--muted);margin-top:16px}
 <rect x="-12" y="-36" width="24" height="30" rx="12" fill="#5A2A10" opacity=".7"/></g><circle cx="300" cy="220" r="60" fill="url(#glw)" opacity=".7"/></g>
  <g id="boat6"><g class="" transform="translate(140 380) scale(1.3)"><path d="M-60 -8 Q-50 14 0 16 Q50 14 60 -8 Q0 0 -60 -8Z" fill="#7A4A22"/><path d="M-58 -8 Q0 -2 58 -8" stroke="#A97440" stroke-width="3" fill="none"/><path d="M-60 -8 l-6 -8 M60 -8 l6 -8" stroke="#7A4A22" stroke-width="4" stroke-linecap="round"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 4;0 0" dur="3s" repeatCount="indefinite"/></g>
 </g>
-<g id="ptr" class="ptr" opacity="0"><rect x="-38" y="-48" width="76" height="22" rx="11" fill="#fff" stroke="#06C755" stroke-width="1.5"/><text x="0" y="-32" text-anchor="middle" font-size="13" font-weight="700" fill="#048A3B" font-family="Sarabun" id="ptrT">กดที่นี่</text><text x="0" y="-2" text-anchor="middle" font-size="26">👇</text></g>
+<g id="ptr" opacity="0"><g class="ptr"><g><animateTransform attributeName="transform" type="translate" values="-60 -70;0 0;0 0;-60 -70" keyTimes="0;.35;.85;1" dur="3s" repeatCount="indefinite"/>
+<g transform="translate(-17 -40)"><path class="wg" d="M18 12 Q10 0 2 4 Q10 8 16 14Z" fill="#2F7FB8"/><ellipse cx="22" cy="15" rx="10" ry="6" fill="#2F7FB8"/><ellipse cx="23" cy="18" rx="7" ry="3.5" fill="#F28B3C"/><circle cx="30" cy="11" r="5" fill="#2F7FB8"/><circle cx="31.5" cy="10" r="1.2" fill="#fff"/><path d="M34 11 l6 2 l-6 1z" fill="#2A1A12"/><path d="M12 16 l-8 3 l8 0z" fill="#1F5F8B"/></g></g>
+<rect x="-38" y="-66" width="76" height="22" rx="11" fill="#fff" stroke="#06C755" stroke-width="1.5"/><text x="0" y="-50" text-anchor="middle" font-size="13" font-weight="700" fill="#048A3B" font-family="Sarabun" id="ptrT">แตะที่นี่</text><text x="0" y="-4" text-anchor="middle" font-size="22">👇</text></g></g>
 </svg>
     <button type="button" class="snd" id="snd" aria-label="เปิดปิดเสียง">🔊</button>
     <div class="cap" id="cap"></div>
@@ -203,10 +209,10 @@ footer{text-align:center;font-size:13px;color:var(--muted);margin-top:16px}
   <details>
     <summary>ลานกลาง ฝึกอะไร<span class="i"></span></summary>
     <div class="more">
-      <p><b>C เห็นแล้วหยุด</b> · สิ่งที่ได้เห็น ได้ยิน ความคิด ความรู้สึก ลอยเข้ามา ให้หยุด แค่ดู</p>
-      <p><b>B กลับมาที่ลมหายใจ</b> · หายใจตามจังหวะของตัวเอง ลมหายใจพาสิ่งที่ลอยมาให้จางไป</p>
-      <p><b>N เห็นตามจริง</b> · เพียงรู้ ดูเห็น ตามเป็นจริง ปัจจุบัน เป็นเช่นนั้น เป็นเช่นนั้น</p>
-      <p><b>R แค่นั่ง</b> · ไม่มีที่ไหนให้ไป ไม่มีอะไรให้ทำ</p>
+      <p><b>1 มีสิ่งกระทบ</b> · สิ่งที่ได้เห็น ได้ยิน ความคิด ความรู้สึก ลอยเข้ามา ให้หยุด แค่ดู</p>
+      <p><b>2 มีสติบนฐานลมหายใจ</b> · หายใจตามจังหวะของตัวเอง ลมหายใจพาสิ่งที่ลอยมาให้จางไป</p>
+      <p><b>3 พิจารณาเห็น</b> · เพียงรู้ ดูเห็น ตามเป็นจริง ปัจจุบัน เป็นเช่นนั้น เป็นเช่นนั้น</p>
+      <p><b>4 วางใจเป็นกลาง</b> · ไม่มีที่ไหนให้ไป ไม่มีอะไรให้ทำ</p>
       <p>ยิ่งฝึก ยิ่งมี <b>ช่องว่าง</b> ระหว่างสิ่งที่มากระทบ กับการตอบสนอง · ช่องว่างนี้ทำให้เราไม่ตอบโต้ไปตามความเคยชิน</p>
     </div>
   </details>
@@ -220,7 +226,7 @@ function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+
 function sbDeed(id){try{var k=today(),o=JSON.parse(localStorage.getItem('sb_auto')||'{}');o[k]=o[k]||[];if(o[k].indexOf(id)<0)o[k].push(id);for(var x in o)if(x<k)delete o[x];localStorage.setItem('sb_auto',JSON.stringify(o));}catch(e){}}
 var H;try{H=JSON.parse(localStorage.getItem('sb_hotham')||'null');}catch(e){}if(!H)H={days:[]};
 function saveH(){try{localStorage.setItem('sb_hotham',JSON.stringify(H));}catch(e){}}
-var TAP='<span class="tap"><em>กดที่นี่</em>👇</span>';
+var TAP='<span class="tap"><svg class="kbird" viewBox="0 0 40 28" width="34" height="24"><path class="wg" d="M18 12 Q10 0 2 4 Q10 8 16 14Z" fill="#2F7FB8"/><ellipse cx="22" cy="15" rx="10" ry="6" fill="#2F7FB8"/><ellipse cx="23" cy="18" rx="7" ry="3.5" fill="#F28B3C"/><circle cx="30" cy="11" r="5" fill="#2F7FB8"/><circle cx="31.5" cy="10" r="1.2" fill="#fff"/><path d="M34 11 l6 2 l-6 1z" fill="#2A1A12"/><path d="M12 16 l-8 3 l8 0z" fill="#1F5F8B"/></svg><em>กดที่นี่</em>👇</span>';
 function btn(id,ic,t,s,main){return '<button type="button" class="pick'+(main===false?'':' main')+'" id="'+id+'"><span class="ic">'+ic+'</span><span><b>'+t+'</b><small>'+(s||'')+'</small></span>'+TAP+'</button>';}
 function panel(h,s,body){$('ph').innerHTML=h+(s?'<small>'+s+'</small>':'');$('pbody').innerHTML=body||'';}
 function cap(t,big){var c=$('cap');c.style.opacity=0;setTimeout(function(){c.innerHTML=t;c.className='cap'+(big?' big':'');c.style.opacity=1;},400);}
@@ -260,7 +266,7 @@ $('snd').addEventListener('click',function(e){e.stopPropagation();mute=!mute;mas
 // ===== S1 ท่าเรือ =====
 var stage=$('stage'),onStage=null;
 stage.addEventListener('click',function(e){if(onStage)onStage(e);});
-function s1(){show('s1');ptr(230,322,'แตะที่เรือ');cap('เช้านี้ ทะเลสาบเงียบสงบ · เรือรออยู่ที่ท่า');
+function s1(){show('s1');ptr(230,322,'แตะที่นี่');cap('เช้านี้ ทะเลสาบเงียบสงบ · เรือรออยู่ที่ท่า');
   panel('1 แตะที่เรือ เพื่อลงเรือ','แตะแล้ว เสียงทะเลสาบจะดังขึ้น',btn('b1','🛶','ลงเรือ','ล่องไปหอธรรมทองคำ'));
   var go=function(){onStage=null;startAmbient();s2();};$('b1').onclick=go;onStage=go;}
 // ===== S2 ล่องเรือ + กลอง =====
@@ -268,7 +274,7 @@ function s2(){show('s2');ptr();cap('ล่องเรือไปหอธร�
   hullOn=true;hull();setTimeout(gust,1500);setTimeout(gust,6000);
   var pv=$('pav2');tween(pv,function(e){var k=.5+e*.7;pv.setAttribute('transform','translate(187 290) scale('+k+') translate(-187 -270)');},9000,arrive);}
 var hits=0,lastHit=0;
-function arrive(){hullOn=false;var d=$('drumG');d.style.transition='opacity 1.2s';d.setAttribute('opacity',1);cap('ถึงท่าหอธรรมแล้ว · กลองชัยวางรออยู่');ptr(305,230,'ตีกลอง');
+function arrive(){hullOn=false;var d=$('drumG');d.style.transition='opacity 1.2s';d.setAttribute('opacity',1);cap('ถึงท่าหอธรรมแล้ว · กลองชัยวางรออยู่');ptr(305,230,'แตะที่นี่');
   panel('2 ตีกลองชัย บอกว่าเรามาถึงแล้ว','แตะที่กลองหลายๆ ครั้ง รัวๆ ได้ · ครบ 7 ครั้ง ประตูหอจะเปิด',btn('b2','🥁','ตีกลอง','แตะรัวๆ ได้')+'<div class="dots" id="dots">'+'<i></i>'.repeat(7)+'</div>');
   var hit=function(){var now=Date.now(),v=Math.min(1,.45+(now-lastHit<700?hits*.08:0));lastHit=now;drum(v);hits++;
     var r=$('drumRing');r.setAttribute('opacity',1);tween(r,function(e){r.setAttribute('rx',30+e*40);r.setAttribute('ry',9+e*12);r.setAttribute('opacity',1-e);},700);
@@ -279,7 +285,7 @@ function arrive(){hullOn=false;var d=$('drumG');d.style.transition='opacity 1.2s
 // ===== S3 ขึ้นหอ =====
 function s3(){birdsOn=false;show('s3');ptr();cap('ขึ้นหอธรรม · พระประธานเรืองแสงอยู่เบื้องหน้า');setTimeout(bell,500);setTimeout(bowl,2600);
   var b=$('bellH');tween(b,function(e){b.setAttribute('transform','rotate('+(Math.sin(e*12)*8*(1-e))+' 187 0)');},4000);
-  setTimeout(function(){ptr(187,268,'ถวายดอกไม้');panel('3 กดถวายดอกไม้ หน้าพระประธาน','วางดอกบัว ด้วยใจนอบน้อม',btn('b3','🪷','ถวายดอกไม้','วางหน้าพระประธาน'));
+  setTimeout(function(){ptr(187,268,'แตะที่นี่');panel('3 กดถวายดอกไม้ หน้าพระประธาน','วางดอกบัว ด้วยใจนอบน้อม',btn('b3','🪷','ถวายดอกไม้','วางหน้าพระประธาน'));
     var give=function(){onStage=null;ptr();$('b3').disabled=true;var f=$('flower');f.setAttribute('opacity',1);ding();
       tween(f,function(e){f.setAttribute('transform','translate(187 '+(420-e*120)+')');},2200,function(){bowl();var g=$('hallGlow');tween(g,function(e){g.setAttribute('opacity',.6+e*.4);},1500);
         cap('ถวายแล้ว 🙏');panel('ถวายแล้ว 🙏','ต่อไป ไปลานกลาง วางรากฐานใจ',btn('b3b','🌊','ไปลานกลาง','นั่งบนแพทองกลางทะเลสาบ'));$('b3b').onclick=s4;});};
@@ -289,7 +295,7 @@ var B=[],frozen=0,popped=0,runB=false,gapW=4;
 var THOUGHTS=[['💭','ต้องรีบส่งงาน'],['💬','"ทำไมทำแบบนี้"'],['📱','ข้อความเด้ง'],['💸','เงินไม่พอ'],['😠','ยังโกรธเขาอยู่'],['👀','เห็นเขาได้ดีกว่า'],['💭','ลืมอะไรหรือเปล่า'],['😟','กลัวพรุ่งนี้']];
 function gap(p){gapW=Math.max(gapW,p);$('gapBar').style.width=gapW+'%';}
 function s4(){show('s4');ptr();birdsOn=true;cap('ลานกลาง · แพทองกลางทะเลสาบ');$('gapBox').style.display='flex';gap(4);
-  panel('4 วางรากฐานใจ · ไม่เกิน 3 นาที','นั่งให้สบาย หลังตรง ผ่อนไหล่ · มี 4 ขั้น C · B · N · R',btn('b4','🧘','เริ่ม','กดแล้ว ฟังเสียงขัน'));$('b4').onclick=function(){bowl();stepC();};}
+  panel('4 วางรากฐานใจ · ไม่เกิน 3 นาที','นั่งให้สบาย หลังตรง ผ่อนไหล่ · มี 4 ขั้น',btn('b4','🧘','เริ่ม','กดแล้ว ฟังเสียงขัน'));$('b4').onclick=function(){bowl();stepC();};}
 function spawn(){var th=THOUGHTS[Math.floor(Math.random()*THOUGHTS.length)],side=Math.random()<.5?-1:1,x=side<0?-40:415,y=60+Math.random()*160;
   var g=document.createElementNS('http://www.w3.org/2000/svg','g');g.innerHTML='<circle r="34" fill="#fff" opacity=".88" stroke="#fff" stroke-width="2"/><text y="-6" text-anchor="middle" font-size="20">'+th[0]+'</text><text y="16" text-anchor="middle" font-size="10.5" font-family="Sarabun" fill="#5C3A1E">'+th[1]+'</text>';
   $('bubbles').appendChild(g);var b={g:g,x:x,y:y,tx:187+(Math.random()*60-30),ty:250+Math.random()*40,fz:false,t0:performance.now()};B.push(b);return b;}
@@ -297,7 +303,7 @@ var raf=null;
 function loopC(now){B.forEach(function(b){if(b.fz||b.gone)return;var k=Math.min(1,(now-b.t0)/14000);var x=b.x+(b.tx-b.x)*k,y=b.y+(b.ty-b.y)*k+Math.sin(now/600+b.x)*4;b.cx=x;b.cy=y;b.g.setAttribute('transform','translate('+x.toFixed(1)+' '+y.toFixed(1)+')');
   if(k>=1){b.gone=true;var gg=b.g;tween(gg,function(e){gg.setAttribute('opacity',1-e);},900,function(){gg.remove();});}});raf=requestAnimationFrame(loopC);}
 function stepC(){cap('สิ่งที่เห็น ได้ยิน ความคิด ความรู้สึก ลอยเข้ามา');
-  panel('ขั้น C · เห็นแล้วหยุด','มีอะไรลอยเข้ามา ไม่ต้องตามไป · เห็นแล้ว กด หยุด',btn('bC','✋','หยุด','แค่หยุด ดู รู้ เห็น')+'<p class="note" id="cn">หยุดได้ 0 / 4</p>');
+  panel('ขั้น 1 · มีสิ่งกระทบ','มีอะไรลอยเข้ามา ไม่ต้องตามไป · เห็นแล้ว กด หยุด',btn('bC','✋','หยุด','แค่หยุด ดู รู้ เห็น')+'<p class="note" id="cn">หยุดได้ 0 / 4</p>');
   var sp=setInterval(function(){if(frozen<4)spawn();},2300);spawn();raf=requestAnimationFrame(loopC);
   $('bC').onclick=function(){var live=B.filter(function(b){return !b.fz&&!b.gone&&b.cx!=null;});if(!live.length)return;
     live.sort(function(a,b){return (a.t0)-(b.t0);});var b=live[0];b.fz=true;frozen++;ding();
@@ -305,23 +311,20 @@ function stepC(){cap('สิ่งที่เห็น ได้ยิน ค�
     $('cn').textContent='หยุดได้ '+frozen+' / 4';gap(4+frozen*7);
     if(frozen>=4){clearInterval(sp);B.forEach(function(x){if(!x.fz&&!x.gone){x.gone=true;var gg=x.g;tween(gg,function(e){gg.setAttribute('opacity',1-e);},800,function(){gg.remove();});}});setTimeout(stepB,1200);}};}
 function stepB(){cap('ลมหายใจ คือฐานของสติ');var orb=$('orb');orb.setAttribute('opacity',.9);
-  panel('ขั้น B · กลับมาที่ลมหายใจ','แตะค้างตอนหายใจเข้า · ปล่อยตอนหายใจออก · ตามจังหวะของคุณเอง',
-   '<button type="button" class="hold" id="hold">หายใจเข้า<small>แตะค้างไว้</small>'+TAP+'</button><p class="note" id="bn">ลมหายใจ 0 · สิ่งที่ลอยมา เหลือ '+frozen+'</p>');
-  var h=$('hold'),t0=0,r=22,raf2;function grow(on){cancelAnimationFrame(raf2);var r0=r,s=performance.now(),dur=on?4000:5000;(function f(n){var k=Math.min(1,(n-s)/dur);r=r0+((on?60:22)-r0)*k;orb.setAttribute('r',r.toFixed(1));if(k<1)raf2=requestAnimationFrame(f);})(s);}
-  var down=function(e){e.preventDefault();t0=Date.now();h.classList.add('on');h.firstChild.textContent='หายใจเข้า...';grow(true);};
-  var up=function(e){if(!t0)return;var dt=Date.now()-t0;t0=0;h.classList.remove('on');h.firstChild.textContent='หายใจออก...';grow(false);
-    if(dt>900){var fz=B.filter(function(b){return b.fz&&!b.gone;});popped++;var b=fz[0];
-      if(b){b.gone=true;var gg=b.g;chime(.05);tween(gg,function(e){gg.setAttribute('opacity',.75*(1-e));gg.setAttribute('transform','translate('+b.cx.toFixed(1)+' '+(b.cy-e*30).toFixed(1)+') scale('+(1+e*.6)+')');},1600,function(){gg.remove();});}
-      var left=B.filter(function(b){return b.fz&&!b.gone;}).length;$('bn').textContent='ลมหายใจ '+popped+' · สิ่งที่ลอยมา เหลือ '+left;gap(32+popped*9);
-      setTimeout(function(){h.firstChild.textContent='หายใจเข้า';},1500);
-      if(left===0&&popped>=3){h.disabled=true;setTimeout(function(){orb.setAttribute('opacity',.5);stepN();},2500);}}
-    else setTimeout(function(){h.firstChild.textContent='หายใจเข้า';},600);};
-  h.addEventListener('pointerdown',down);h.addEventListener('pointerup',up);h.addEventListener('pointerleave',up);h.addEventListener('pointercancel',up);}
-function stepN(){panel('ขั้น N · เห็นตามจริง','อ่านช้าๆ ไม่ต้องรีบ','');gap(72);
+  panel('ขั้น 2 · มีสติบนฐานลมหายใจ','หายใจเข้า หายใจออก สบายๆ 1 รอบ แล้วแตะ · ความคิดจะจางหายไปทีละอัน',
+   btn('bB','🌬️','หายใจเข้า-ออก 1 รอบ แล้วแตะ','รอบที่ 1')+'<p class="note" id="bn">ความคิดที่ลอยมา เหลือ '+frozen+'</p>');
+  var t0=performance.now();(function pulse(n){if(!orb.isConnected)return;var k=(Math.sin((n-t0)/1000*Math.PI/5)+1)/2;orb.setAttribute('r',(24+k*30).toFixed(1));if(!stepB.done)requestAnimationFrame(pulse);})(t0);
+  var bb=$('bB'),last=0;bb.onclick=function(){var now=Date.now();if(now-last<2500)return;last=now;
+    var fz=B.filter(function(b){return b.fz&&!b.gone;});var b=fz[0];popped++;
+    if(b){b.gone=true;var gg=b.g;chime(.05);tween(gg,function(e){gg.setAttribute('opacity',.75*(1-e));gg.setAttribute('transform','translate('+b.cx.toFixed(1)+' '+(b.cy-e*30).toFixed(1)+') scale('+(1+e*.6)+')');},1600,function(){gg.remove();});}
+    var left=B.filter(function(x){return x.fz&&!x.gone;}).length;$('bn').textContent=left?'ความคิดที่ลอยมา เหลือ '+left:'ความคิดจางหายหมดแล้ว 🍃';gap(32+popped*9);
+    bb.querySelector('small').textContent=left?'หายใจต่อ... แล้วแตะ · รอบที่ '+(popped+1):'';bb.style.opacity=.55;setTimeout(function(){bb.style.opacity=1;},2500);
+    if(left===0){stepB.done=true;bb.disabled=true;setTimeout(function(){orb.setAttribute('opacity',.5);stepN();},2500);}};}
+function stepN(){panel('ขั้น 3 · พิจารณาเห็น','อ่านช้าๆ ไม่ต้องรีบ','');gap(72);
   var L=['เพียงรู้ ดูเห็น','ตามเป็นจริง ปัจจุบัน','เป็นเช่นนั้น<br>เป็นเช่นนั้น'],i=0;
   (function nx(){if(i<L.length){cap(L[i],true);i++;setTimeout(nx,3200);}else{$('pbody').innerHTML=btn('bN','🙏','เป็นเช่นนั้น','เห็นแล้ว');$('bN').onclick=stepR;}})();}
 function stepR(){bowl();cap('ไม่มีที่ไหนให้ไป<br>ไม่มีอะไรให้ทำ',true);
-  panel('ขั้น R · แค่นั่ง','วางมือ ไม่ต้องกดอะไร · แค่นั่ง ฟังเสียงน้ำ',
+  panel('ขั้น 4 · วางใจเป็นกลาง','วางมือ ไม่ต้องกดอะไร · แค่นั่ง ฟังเสียงน้ำ',
    '<svg class="ring" width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#EAF8EF" stroke-width="10"/><circle id="rg" cx="60" cy="60" r="52" fill="none" stroke="#06C755" stroke-width="10" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="327" transform="rotate(-90 60 60)"/><text x="60" y="66" text-anchor="middle" font-size="18" font-weight="700" fill="#5C3A1E" font-family="Sarabun">แค่นั่ง</text></svg>');
   var T=40000,s=performance.now();(function f(n){var k=Math.min(1,(n-s)/T);var rg=$('rg');if(rg)rg.setAttribute('stroke-dashoffset',(327*(1-k)).toFixed(1));gap(72+k*28);if(k<1)requestAnimationFrame(f);else{bowl();setTimeout(s5,2500);}})(s);}
 // ===== S5 เปลี่ยนอิริยาบถ =====
