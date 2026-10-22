@@ -106,6 +106,7 @@ footer{line-height:1.7}
 .head5 small{display:block;font-size:14px;color:#E8FFF0;margin-top:6px}
 #step5 .breath{height:180px}#step5 .orb{width:72px;height:72px}
 #startBtn{margin-top:34px}
+.toChedi{display:none;margin-top:40px}#after .dhamma[style*="block"]+.toChedi{display:flex}
 </style>
 </head>
 <body>
@@ -170,6 +171,7 @@ footer{line-height:1.7}
       <p id="dtext"></p>
       <div class="now">เพียงรู้ ดูเห็น ตามเป็นจริง ปัจจุบัน เป็นเช่นนั้น ๆ</div>
     </div>
+    <a class="pick main toChedi" href="chedi.html"><span class="ic">🧱</span><span><b>ได้อิฐความดีแล้ว · ไปก่อเจดีย์</b><small>เจดีย์แห่งความดี ของคุณ</small></span><span class="tap"><em>กดที่นี่</em>👇</span></a>
     <button type="button" class="again" id="again">สรงน้ำอีกครั้ง</button>
   </div>
 
@@ -197,6 +199,7 @@ footer{line-height:1.7}
 </div>
 
 <script>
+function sbDeed(id){try{var d=new Date(),k=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2),o=JSON.parse(localStorage.getItem('sb_auto')||'{}');o[k]=o[k]||[];if(o[k].indexOf(id)<0)o[k].push(id);for(var x in o)if(x<k)delete o[x];localStorage.setItem('sb_auto',JSON.stringify(o));}catch(e){}}
 var DH=['ใจที่วางลง คือใจที่เบา','ทุกข์เกิดได้ ทุกข์ก็ดับได้','สิ่งใดเกิดขึ้น สิ่งนั้นย่อมดับไป','ไม่ต้องรีบให้หาย แค่รู้ว่ากำลังเป็นอยู่','ลมหายใจนี้ คือบ้านที่กลับมาได้เสมอ','อดีตผ่านไปแล้ว อนาคตยังมาไม่ถึง ใจอยู่ได้ที่ปัจจุบัน','ให้อภัย คือการปล่อยใจตัวเองให้เป็นอิสระ','น้ำไม่ฝืนก้อนหิน น้ำไหลอ้อมไป','ความคิดไม่ใช่เรา เป็นเพียงสิ่งที่ผ่านมา แล้วผ่านไป','เห็นความกังวล โดยไม่ต้องเป็นความกังวล','วันนี้ทำดีได้หนึ่งอย่าง ก็พอแล้ว','ใจสงบ ไม่ใช่ใจที่ไม่มีเรื่อง แต่เป็นใจที่ไม่ยึดเรื่อง','สิ่งที่ควบคุมไม่ได้ วางไว้ · สิ่งที่ทำได้ ทำด้วยใจเย็น','ทุกอย่างเปลี่ยนไปเสมอ เรื่องนี้ก็เช่นกัน','ใจดีกับตัวเอง ให้เท่ากับที่ใจดีกับคนอื่น','หายใจเข้ารู้ หายใจออกรู้ แค่นี้ก็เป็นธรรม','ไม่ต้องชนะทุกเรื่อง แค่ไม่แพ้ใจตัวเอง','ความเงียบ ก็เป็นคำตอบได้','ฟังให้มากขึ้นอีกนิด ตัดสินให้ช้าลงอีกหน่อย','ที่หนัก ไม่ใช่ตัวเรื่อง แต่คือการแบกเรื่องไว้','ปล่อยวาง ไม่ใช่ทิ้ง แต่คือไม่แบก','ขอบคุณสิ่งเล็ก ๆ วันนี้ ใจจะกว้างขึ้น','พรุ่งนี้เป็นวันใหม่ ใจก็เริ่มใหม่ได้','ทุกข์มาให้เห็น ไม่ได้มาให้จม','กายได้พัก ใจก็พักได้','ทำหน้าที่วันนี้ให้ดี แล้ววางผลไว้กับเหตุปัจจัย','สติอยู่ที่ไหน ใจอยู่ที่นั่น','คนที่ทำให้เราเจ็บ ก็อาจกำลังเจ็บอยู่เหมือนกัน','มีเมตตา ใจก็ไม่มีศัตรู','เพียงรู้ ดูเห็น ตามเป็นจริง ปัจจุบัน เป็นเช่นนั้น ๆ'];
 function $(i){return document.getElementById(i);}
 var kind=null,ready=false,busy=false,mute=false,ac=null,wsrc=null,wgain=null;
@@ -276,7 +279,7 @@ function breathe(n){
   }
   phase();
 }
-function showDhamma(){var d=new Date(),start=new Date(d.getFullYear(),0,0),day=Math.floor((d-start)/864e5);
+function showDhamma(){sbDeed(3);sbDeed(8);sbDeed(10);var d=new Date(),start=new Date(d.getFullYear(),0,0),day=Math.floor((d-start)/864e5);
   $('dtext').textContent=DH[day%DH.length];$('dhamma').style.display='block';}
 $('pourBtn').addEventListener('click',pour);
 var sy=null;
