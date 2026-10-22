@@ -75,6 +75,24 @@ footer{text-align:center;font-size:13px;color:var(--muted);margin-top:24px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:#2A1A12;color:#fff;border-radius:14px;padding:10px 16px;font-size:16px;max-width:90%;text-align:center;transition:transform .4s;z-index:20}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .fly{position:fixed;z-index:30;font-size:28px;pointer-events:none;transition:transform 1s cubic-bezier(.5,-.3,.7,1),opacity 1s}
+.exitBox{text-align:center}.exitBox.full{box-shadow:0 0 0 4px #FFE08A,0 3px 0 rgba(6,199,85,.22)}
+.turtleBtn{position:relative;display:block;width:100%;border:0;background:radial-gradient(ellipse at 50% 60%,#2F7F94,#1F5F72);border-radius:14px;padding:14px 10px 10px;margin-top:34px;cursor:pointer;color:#fff;font:inherit}
+.turtleBtn b{display:block;font-size:17px}.tsvg{width:140px;height:92px}
+.tswim{animation:tsw 2.4s ease-in-out infinite alternate;transform-origin:60px 40px}
+@keyframes tsw{from{transform:translate(-8px,2px) rotate(-4deg)}to{transform:translate(8px,-2px) rotate(4deg)}}
+.koan{position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(10,35,45,0);transition:background 1.2s}
+.koan.show{background:rgba(10,35,45,.82)}
+.kwater{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(255,233,160,.25),transparent 60%);opacity:0;transition:opacity 2s}
+.koan.show .kwater{opacity:1}
+.kcard{position:relative;max-width:420px;width:100%;background:#FFFBF3;border-radius:20px;padding:18px 16px 14px;text-align:center;transform:translateY(110vh);transition:transform 2.2s cubic-bezier(.2,.8,.2,1)}
+.koan.show .kcard{transform:translateY(0)}
+.kturtle{font-size:46px;margin-top:-50px}
+.kcard small{display:block;color:var(--muted);font-size:14px}
+.kcard p{font-size:23px;font-weight:700;color:var(--red);line-height:1.5;margin:8px 0;opacity:0;transition:opacity 2s 2s}
+.koan.show .kcard p{opacity:1}
+.khint{display:block;font-size:14px;color:var(--brown)}
+.kbtn{display:block;width:100%;margin-top:10px;background:none;border:0;color:#048A3B;font:600 15px "Sarabun",sans-serif;cursor:pointer;padding:6px}
+.kbtn#kStay{color:var(--muted);text-decoration:underline;font-weight:400}
 </style>
 </head>
 <body>
@@ -172,6 +190,18 @@ footer{text-align:center;font-size:13px;color:var(--muted);margin-top:24px}
 <rect width="375" height="240" fill="url(#sky2)"/><path d="M0 80 Q90 60 190 74 T375 70 V100 H0Z" fill="#B5835A" opacity=".5"/><rect y="95" width="375" height="145" fill="url(#lk2)"/><g id="isles"></g></svg></div>
   </div>
 
+  <div class="sbox exitBox" id="exitBox">
+    <div class="shead" id="exitHead">ออกจากหน้านี้</div>
+    <button type="button" class="turtleBtn" id="exitBtn" aria-label="กดที่เต่าทอง ออกจากหน้านี้">
+      <svg viewBox="0 0 120 80" class="tsvg"><g class="tswim"><ellipse cx="22" cy="40" rx="11" ry="8" fill="#C99A3C"/><circle cx="18" cy="37" r="2" fill="#2A1A12"/>
+      <path d="M44 22 l-14 -12 M44 58 l-14 12 M80 24 l12 -12 M80 56 l12 12" stroke="#C99A3C" stroke-width="9" stroke-linecap="round"/>
+      <ellipse cx="62" cy="40" rx="30" ry="22" fill="url(#tg)"/><path d="M48 40 h28 M62 24 v32 M50 30 l24 20 M74 30 l-24 20" stroke="#FFF3C4" stroke-width="2" opacity=".7"/>
+      <path d="M92 40 l10 -3 v6z" fill="#C99A3C"/></g>
+      <defs><radialGradient id="tg" cx=".4" cy=".35"><stop offset="0" stop-color="#FFF1A8"/><stop offset=".6" stop-color="#E5B23A"/><stop offset="1" stop-color="#A8741A"/></radialGradient></defs></svg>
+      <b>กดที่เต่าทอง</b><span class="tap"><em>กดที่นี่</em>👇</span>
+    </button>
+  </div>
+
   <details>
     <summary>อิฐ และของพิเศษ ได้มาอย่างไร<span class="i"></span></summary>
     <div class="more">
@@ -187,6 +217,18 @@ footer{text-align:center;font-size:13px;color:var(--muted);margin-top:24px}
 
   <footer>มาก่ออิฐได้ทุกวัน · LINE สานบุญ @917ytacj</footer>
   <div class="toast" id="toast"></div>
+  <div class="koan" id="koan">
+    <div class="kwater"></div>
+    <div class="kcard">
+      <div class="kturtle">🐢</div>
+      <small>คำถามติดใจ วันนี้</small>
+      <p id="kq"></p>
+      <span class="khint">ไม่ต้องรีบตอบ · เก็บไว้ถามใจตัวเองระหว่างวัน</span>
+      <a class="pick main" href="https://line.me/R/ti/p/@917ytacj"><span class="ic">🙏</span><span><b>กลับไปหน้าแชท สานบุญ</b><small>พรุ่งนี้มาก่ออิฐใหม่นะ</small></span><span class="tap"><em>กดที่นี่</em>👇</span></a>
+      <button type="button" class="kbtn" id="kShare">📤 ส่งคำถามนี้ให้เพื่อน</button>
+      <button type="button" class="kbtn" id="kStay">อยู่ต่อในหน้านี้</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -199,7 +241,7 @@ var IT={chat:{n:'ฉัตรทอง',e:'✨',d:3},tung:{n:'ตุง',e:'🎏
 var ITORD=['chat','tung','flower','umb','bell'];
 var DEEDS=[
  {id:1,e:'🎁',t:'ให้ของ ช่วยคนอื่น',k:'self'},
- {id:2,e:'🕊️',t:'วันนี้ไม่ทำร้ายใคร ไม่โกหก',k:'self'},
+ {id:2,e:'🕊️',t:'วันนี้ไม่เบียดเบียนใคร ไม่โกหก',k:'self'},
  {id:3,e:'🌬️',t:'หายใจสบายๆ 3 รอบ',k:'room',room:'songnam.html',rn:'ไปทำที่ห้องสรงน้ำ ›'},
  {id:4,e:'🙏',t:'ไหว้ ขอบคุณพ่อแม่ หรือผู้ใหญ่',k:'self'},
  {id:5,e:'🤝',t:'ช่วยงานคนอื่น',k:'self'},
@@ -319,6 +361,21 @@ $('readBtn').addEventListener('click',function(){$('readPanel').style.display='n
 function pullAuto(){try{var o=JSON.parse(localStorage.getItem('sb_auto')||'{}'),l=o[today()]||[],k=0;
   l.forEach(function(id){if(!done(id)){setTimeout(function(){give(id,null);},k*1300);k++;}});}catch(e){}}
 load();render(false);pullAuto();
+
+// ---------- ออกจากห้อง: เต่านำคำถามขึ้นมา ----------
+var KOAN=['ถ้าตบมือข้างเดียว จะได้ยินเสียงอะไร','ก่อนพ่อแม่จะเกิด หน้าตาจริงๆ ของเราเป็นแบบไหน','ธงที่ปลิวไหว คือธงไหว ลมไหว หรือใจเราไหว','ความโกรธเมื่อวาน ตอนนี้มันอยู่ที่ไหน','ถ้าไม่มีใครเห็น เรายังอยากทำความดีอยู่ไหม','ใครกันที่กำลังหายใจอยู่ตอนนี้','ถ้าวางของหนักลงได้ ทำไมเรายังถืออยู่','ความสุขที่ต้องรอ กับความสุขตอนนี้ อันไหนจริงกว่า','น้ำในแก้วที่เต็ม จะรับน้ำใหม่ได้อย่างไร','เมื่อเราหยุดคิด เราหายไปไหน','สิ่งที่เรากลัวที่สุด เคยเกิดขึ้นจริงสักกี่ครั้ง','คนที่เราไม่ชอบ สอนอะไรเราบ้าง','ถ้าวันนี้เป็นวันสุดท้าย เราจะพูดอะไรกับใคร','ดอกบัวโผล่พ้นโคลน แล้วมันโกรธโคลนไหม','เสียงที่ดังที่สุดวันนี้ มาจากข้างนอก หรือข้างในใจ','เราอยากได้อะไร แล้วถ้าได้แล้ว จะอยากอะไรต่อ','ความเงียบมีเสียงไหม','ถ้าความทุกข์เป็นแขก เราจะต้อนรับเขาอย่างไร','ทำไมเรื่องเดียวกัน บางวันหนัก บางวันเบา','ตอนนี้ ตรงนี้ ขาดอะไรอยู่จริงๆ ไหม'];
+var kq=KOAN[Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/864e5)%KOAN.length];
+function updExit(){var n=(S.log[today()]||[]).length,full=n>=10;
+  $('exitHead').innerHTML=full?'ครบ 10 / 10 แล้ววันนี้ 🎉<small>เต่าทองรอพาคำถามติดใจ ขึ้นมาจากใต้น้ำ</small>':'ออกจากหน้านี้<small>ก่อนไป เต่าทองมีคำถามติดใจ ให้พากลับบ้าน</small>';
+  $('exitBox').classList.toggle('full',full);}
+var _r=render;render=function(a){_r(a);updExit();};
+var _g=give;give=function(id,el,n){var r=_g(id,el,n);setTimeout(function(){if((S.log[today()]||[]).length>=10&&!S['wow'+today()]){S['wow'+today()]=1;save();
+  setTimeout(function(){toast('ครบ 10 อิฐวันนี้แล้ว! 🐢 เลื่อนลงไปกดที่เต่าทอง');$('exitBox').scrollIntoView({behavior:'smooth',block:'center'});},2800);}},1300);return r;};
+$('exitBtn').addEventListener('click',function(){actx();var o=$('koan');$('kq').textContent=kq;o.style.display='flex';void o.offsetWidth;o.classList.add('show');
+  setTimeout(function(){bowl();},1400);});
+$('kStay').addEventListener('click',function(){var o=$('koan');o.classList.remove('show');setTimeout(function(){o.style.display='none';},600);});
+$('kShare').addEventListener('click',function(){shareText('คำถามติดใจวันนี้ 🐢 "'+kq+'" ลองถามใจตัวเองดูนะ จากสานบุญ',function(){});});
+updExit();
 </script>
 </body>
 </html>
