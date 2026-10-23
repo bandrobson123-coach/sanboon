@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>เจดีย์แห่งความดี · สานบุญ</title>
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://sanboon.vercel.app/og-chedi.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
 <meta property="og:title" content="เจดีย์แห่งความดี · สานบุญ">
 <meta property="og:description" content="ทำความดีง่ายๆ ทุกวัน ก่ออิฐ ให้เจดีย์ทองลอยขึ้นจากใต้น้ำ · ฟรี">
 <style>
@@ -337,7 +341,7 @@ $('nextBtn').addEventListener('click',function(){var z=size();S.built.push(Math.
   window.scrollTo({top:0,behavior:'smooth'});});
 // ---------- share ----------
 var URL0='https://sanboon.vercel.app/chedi.html';
-function shareText(t,cb){try{cb();}catch(e){}setTimeout(function(){location.href='https://line.me/R/share?text='+encodeURIComponent(t+'\n👉 '+URL0+'?from=friend\n\n🙏 เพิ่มเพื่อน สานบุญ 👉 https://line.me/R/ti/p/@917ytacj');},1300);}
+function shareText(t,cb){try{cb();}catch(e){}setTimeout(function(){location.href='https://line.me/R/share?text='+encodeURIComponent(t+'\n'+URL0+'?f=1');},1300);}
 $('cheerBtn').addEventListener('click',function(){shareText('เจดีย์แห่งความดีองค์ที่ '+S.n+' ของฉัน โผล่พ้นน้ำแล้ว ✨ มาร่วมยินดี และสร้างเจดีย์ด้วยกันนะ 🙏',function(){});});
 $('tellBtn').addEventListener('click',function(){var el=this,n=(S.log[today()]||[]).length;
   var t='วันนี้ฉันก่ออิฐความดีได้ '+n+' ก้อน 🧱 เจดีย์ทองของฉันกำลังลอยขึ้นจากใต้น้ำ มาสร้างเจดีย์ด้วยกันนะ 🙏';
@@ -378,7 +382,7 @@ $('kShare').addEventListener('click',function(){shareText('คำถามติ
 updExit();
 
 // ===== เพื่อนชวนมา: กล่องเพิ่มเพื่อน =====
-(function(){if(!/[?&]from=friend/.test(location.search))return;
+(function(){if(!/[?&](from=friend|f=1)/.test(location.search))return;
   var a=document.createElement('a');a.className='pick main addf';a.href='https://line.me/R/ti/p/@917ytacj';
   a.innerHTML='<span class="ic">🙏</span><span><b>เพิ่มเพื่อน LINE สานบุญ</b><small>เพื่อนชวนมา · มาสงบใจได้ทุกวัน ฟรี</small></span><span class="tap"><em>กดที่นี่</em>👇</span>';
   a.style.marginTop='40px';var t=document.querySelector('.hero')||document.querySelector('.sub')||document.querySelector('h1');if(t&&t.parentNode)t.parentNode.insertBefore(a,t.nextSibling);
