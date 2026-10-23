@@ -337,8 +337,7 @@ $('nextBtn').addEventListener('click',function(){var z=size();S.built.push(Math.
   window.scrollTo({top:0,behavior:'smooth'});});
 // ---------- share ----------
 var URL0='https://sanboon.vercel.app/chedi.html';
-function shareText(t,cb){if(navigator.share){navigator.share({text:t,url:URL0}).then(cb).catch(function(){});}
-  else{cb();location.href='https://line.me/R/share?text='+encodeURIComponent(t+'\n'+URL0);}}
+function shareText(t,cb){try{cb();}catch(e){}setTimeout(function(){location.href='https://line.me/R/share?text='+encodeURIComponent(t+'\n👉 '+URL0+'?from=friend\n\n🙏 เพิ่มเพื่อน สานบุญ 👉 https://line.me/R/ti/p/@917ytacj');},1300);}
 $('cheerBtn').addEventListener('click',function(){shareText('เจดีย์แห่งความดีองค์ที่ '+S.n+' ของฉัน โผล่พ้นน้ำแล้ว ✨ มาร่วมยินดี และสร้างเจดีย์ด้วยกันนะ 🙏',function(){});});
 $('tellBtn').addEventListener('click',function(){var el=this,n=(S.log[today()]||[]).length;
   var t='วันนี้ฉันก่ออิฐความดีได้ '+n+' ก้อน 🧱 เจดีย์ทองของฉันกำลังลอยขึ้นจากใต้น้ำ มาสร้างเจดีย์ด้วยกันนะ 🙏';
@@ -377,6 +376,13 @@ $('exitBtn').addEventListener('click',function(){actx();var o=$('koan');$('kq').
 $('kStay').addEventListener('click',function(){var o=$('koan');o.classList.remove('show');setTimeout(function(){o.style.display='none';},600);});
 $('kShare').addEventListener('click',function(){shareText('คำถามติดใจวันนี้ 🐢 "'+kq+'" ลองถามใจตัวเองดูนะ จากสานบุญ',function(){});});
 updExit();
+
+// ===== เพื่อนชวนมา: กล่องเพิ่มเพื่อน =====
+(function(){if(!/[?&]from=friend/.test(location.search))return;
+  var a=document.createElement('a');a.className='pick main addf';a.href='https://line.me/R/ti/p/@917ytacj';
+  a.innerHTML='<span class="ic">🙏</span><span><b>เพิ่มเพื่อน LINE สานบุญ</b><small>เพื่อนชวนมา · มาวัดนี้ได้ทุกวัน ฟรี</small></span><span class="tap"><em>กดที่นี่</em>👇</span>';
+  a.style.marginTop='40px';var t=document.querySelector('.hero')||document.querySelector('.sub')||document.querySelector('h1');if(t&&t.parentNode)t.parentNode.insertBefore(a,t.nextSibling);
+  var f=document.querySelector('footer');if(f){var b=a.cloneNode(true);f.parentNode.insertBefore(b,f);}})();
 </script>
 </body>
 </html>

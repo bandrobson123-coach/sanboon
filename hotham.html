@@ -334,6 +334,13 @@ async function back(){show('s6');$('gapBox').style.display='none';birdsOn=false;
    '<button type="button" class="again" onclick="location.reload()">เข้าหอธรรมอีกครั้ง</button>');}
 function updMap(){var n=H.days.length;if(n>=3){$('f2').className='floor on';$('f2s').textContent='ได้กุญแจแล้ว · กำลังสร้าง เปิดเร็วๆ นี้';}else $('f2s').textContent='นั่งแพสมาธิครบ 3 วัน ได้กุญแจ · ตอนนี้ '+n+' / 3';}
 updMap();s1();
+
+// ===== เพื่อนชวนมา: กล่องเพิ่มเพื่อน =====
+(function(){if(!/[?&]from=friend/.test(location.search))return;
+  var a=document.createElement('a');a.className='pick main addf';a.href='https://line.me/R/ti/p/@917ytacj';
+  a.innerHTML='<span class="ic">🙏</span><span><b>เพิ่มเพื่อน LINE สานบุญ</b><small>เพื่อนชวนมา · มาวัดนี้ได้ทุกวัน ฟรี</small></span><span class="tap"><em>กดที่นี่</em>👇</span>';
+  a.style.marginTop='40px';var t=document.querySelector('.hero')||document.querySelector('.sub')||document.querySelector('h1');if(t&&t.parentNode)t.parentNode.insertBefore(a,t.nextSibling);
+  var f=document.querySelector('footer');if(f){var b=a.cloneNode(true);f.parentNode.insertBefore(b,f);}})();
 </script>
 </body>
 </html>
