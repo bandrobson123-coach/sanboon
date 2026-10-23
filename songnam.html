@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>สรงน้ำชำระใจ · สานบุญ</title>
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://sanboon.vercel.app/og-songnam.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
 <meta property="og:title" content="สรงน้ำชำระใจ · สานบุญ">
 <meta property="og:description" content="วางสิ่งที่หนักใจ ให้สายน้ำพาไป · ฟรี มาได้ทุกเมื่อ">
 <style>
@@ -308,7 +312,7 @@ function spawn(g){
 $('startBtn').addEventListener('click',function(){this.style.display='none';if(ac&&ac.state==='suspended')ac.resume();bell();$('btxt').innerHTML='เรามาเริ่มกันเลย';setTimeout(function(){breathe(0);},3500);});
 
 // ===== เพื่อนชวนมา: กล่องเพิ่มเพื่อน =====
-(function(){if(!/[?&]from=friend/.test(location.search))return;
+(function(){if(!/[?&](from=friend|f=1)/.test(location.search))return;
   var a=document.createElement('a');a.className='pick main addf';a.href='https://line.me/R/ti/p/@917ytacj';
   a.innerHTML='<span class="ic">🙏</span><span><b>เพิ่มเพื่อน LINE สานบุญ</b><small>เพื่อนชวนมา · มาสงบใจได้ทุกวัน ฟรี</small></span><span class="tap"><em>กดที่นี่</em>👇</span>';
   a.style.marginTop='40px';var t=document.querySelector('.hero')||document.querySelector('.sub')||document.querySelector('h1');if(t&&t.parentNode)t.parentNode.insertBefore(a,t.nextSibling);
