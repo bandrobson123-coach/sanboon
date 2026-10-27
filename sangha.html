@@ -246,19 +246,20 @@ function copyText(t){
 
 // ===== sound: bell / bowl ambience · gong on offering =====
 var ac,master,rev,mute=false,amb=null;
-function A(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.75;var cp=ac.createDynamicsCompressor();master.connect(cp);cp.connect(ac.destination);
+function A(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.55;master.connect(ac.destination);
  var L=ac.sampleRate*3,ir=ac.createBuffer(2,L,ac.sampleRate);for(var c=0;c<2;c++){var d=ir.getChannelData(c);for(var i=0;i<L;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/L,3.5);}
  rev=ac.createConvolver();rev.buffer=ir;var w=ac.createGain();w.gain.value=.4;rev.connect(w);w.connect(master);}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac;}
 function tone(f,v,dec,at,glide){var t=at||ac.currentTime,o=ac.createOscillator(),g=ac.createGain();o.frequency.setValueAtTime(f,t);if(glide)o.frequency.exponentialRampToValueAtTime(f*glide,t+dec);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.008);g.gain.setTargetAtTime(0,t+.008,dec/4);o.connect(g);g.connect(master);g.connect(rev);o.start(t);o.stop(t+dec+.5);}
 function bell(v){if(!ac||mute)return;v=v||1;var t=ac.currentTime;[[1,.16,9],[2.0,.07,6],[2.76,.06,5],[4.07,.03,3]].forEach(function(p){tone(392*p[0],p[1]*v,p[2],t);tone(392*p[0]+.7,p[1]*.25*v,p[2],t);});}
 function bowl(v){if(!ac||mute)return;v=v||1;var t=ac.currentTime;[[1,.2,8],[2.71,.09,5],[5.15,.04,3]].forEach(function(p){tone(261*p[0],p[1]*v,p[2],t);tone(261*p[0]+.5,p[1]*.3*v,p[2],t);});}
 function strike(t,v){[[1,.15,10],[2.0,.07,7],[2.76,.055,5],[4.07,.028,3],[5.4,.016,2]].forEach(function(p){tone(220*p[0],p[1]*v,p[2],t);tone(220*p[0]+.8,p[1]*.25*v,p[2],t);});}
-function gong3(){if(!ac||mute)return;var t=ac.currentTime;strike(t,1);strike(t+1.1,.85);strike(t+2.2,.75);}
+function gong3(){if(!ac||mute)return;var t=ac.currentTime;strike(t,.9);strike(t+1.1,.75);strike(t+2.2,.65);}
 function ambLoop(){clearTimeout(amb);amb=setTimeout(function(){if(!document.hidden){Math.random()<.5?bowl(.55):bell(.5);}ambLoop();},18000+Math.random()*12000);}
 var started=false;function first(){if(started)return;started=true;A();bell(.8);ambLoop();}
 document.addEventListener('pointerdown',first,true);document.addEventListener('touchstart',first,{capture:true,passive:true});
 (function(){var sb=document.createElement('button');sb.type='button';sb.textContent='🔊';sb.setAttribute('aria-label','เสียง');sb.style.cssText='position:fixed;right:10px;top:10px;width:40px;height:40px;border-radius:50%;border:1px solid #E6D5BE;background:rgba(255,255,255,.9);font-size:19px;z-index:20;cursor:pointer';sb.onclick=function(){A();mute=!mute;sb.textContent=mute?'🔇':'🔊';};document.body.appendChild(sb);})();
 (function(){var g=document.querySelector('.given');if(!g||!('IntersectionObserver' in window))return;var done=false;new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!done&&started){done=true;bowl(.9);}});},{threshold:.5}).observe(g);})();
+window.addEventListener('pageshow',function(){var o=document.getElementById('fareOv');if(o)o.remove();if(ac&&master){master.gain.cancelScheduledValues(ac.currentTime);master.gain.value=.55;}});
 document.getElementById('f').addEventListener('submit',function(e){
   e.preventDefault();
   var err=document.getElementById('err'),a=Math.floor(+amt.value||0),name=document.getElementById('name').value.trim();
@@ -273,7 +274,12 @@ document.getElementById('f').addEventListener('submit',function(e){
   var b=document.getElementById('backup');b.style.display='block';
   document.getElementById('bcopy').onclick=function(){var x=this;copyText(msg).then(function(){x.textContent='คัดลอกแล้ว ✓';setTimeout(function(){x.textContent='คัดลอกข้อความอีกครั้ง';},1800);});};
   document.getElementById('bopen').onclick=function(){location.href='https://line.me/R/ti/p/%40917ytacj';};
-  A();started=true;gong3();setTimeout(function(){location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);},(ac&&!mute)?3300:700);
+  A();started=true;clearTimeout(amb);gong3();
+  var ov=document.getElementById('fareOv');if(!ov){ov=document.createElement('div');ov.id='fareOv';ov.style.cssText='position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(#FFF6D8,#F3D9A0 70%);color:#7A2410;font:700 24px Sarabun,sans-serif;opacity:0;transition:opacity 1.6s;padding:24px';ov.innerHTML='<div style="font-size:56px">🙏</div><div style="margin-top:10px">อนุโมทนาบุญ</div><div style="font-weight:400;font-size:17px;color:#5C3A1E;margin-top:6px">กำลังพาไปส่งเจตนาในไลน์…</div>';document.body.appendChild(ov);}
+  setTimeout(function(){ov.style.opacity=1;},50);
+  var wait=(ac&&!mute)?4600:900;
+  if(ac&&!mute){setTimeout(function(){var t=ac.currentTime;master.gain.cancelScheduledValues(t);master.gain.setValueAtTime(master.gain.value,t);master.gain.linearRampToValueAtTime(0.0001,t+1.2);},wait-1400);}
+  setTimeout(function(){location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);},wait);
 });
 document.querySelectorAll('.cp').forEach(function(b){b.addEventListener('click',function(){copyText('4381234647').then(function(){b.textContent='คัดลอกแล้ว ✓';setTimeout(function(){b.textContent='คัดลอกเลข';},1800);});});});
 draw(); load();
