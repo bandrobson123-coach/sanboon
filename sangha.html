@@ -243,6 +243,23 @@ function copyText(t){
   var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.position='absolute';a.style.left='-9999px';document.body.appendChild(a);a.select();
   try{document.execCommand('copy');}catch(e){}document.body.removeChild(a);return Promise.resolve();
 }
+
+// ===== sound: bell / bowl ambience · gong on offering =====
+var ac,master,rev,mute=false,amb=null;
+function A(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.9;var cp=ac.createDynamicsCompressor();master.connect(cp);cp.connect(ac.destination);
+ var L=ac.sampleRate*3,ir=ac.createBuffer(2,L,ac.sampleRate);for(var c=0;c<2;c++){var d=ir.getChannelData(c);for(var i=0;i<L;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/L,3.5);}
+ rev=ac.createConvolver();rev.buffer=ir;var w=ac.createGain();w.gain.value=.4;rev.connect(w);w.connect(master);}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac;}
+function tone(f,v,dec,at,glide){var t=at||ac.currentTime,o=ac.createOscillator(),g=ac.createGain();o.frequency.setValueAtTime(f,t);if(glide)o.frequency.exponentialRampToValueAtTime(f*glide,t+dec);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.008);g.gain.setTargetAtTime(0,t+.008,dec/4);o.connect(g);g.connect(master);g.connect(rev);o.start(t);o.stop(t+dec+.5);}
+function bell(v){if(!ac||mute)return;v=v||1;var t=ac.currentTime;[[1,.16,9],[2.0,.07,6],[2.76,.06,5],[4.07,.03,3]].forEach(function(p){tone(392*p[0],p[1]*v,p[2],t);tone(392*p[0]+.7,p[1]*.25*v,p[2],t);});}
+function bowl(v){if(!ac||mute)return;v=v||1;var t=ac.currentTime;[[1,.2,8],[2.71,.09,5],[5.15,.04,3]].forEach(function(p){tone(261*p[0],p[1]*v,p[2],t);tone(261*p[0]+.5,p[1]*.3*v,p[2],t);});}
+function gong(at){var t=at;[[196,.26,4],[392,.22,3.5],[523,.16,3],[784,.12,2.4],[1175,.07,1.6],[98,.2,4.5]].forEach(function(p){tone(p[0],p[1],p[2],t,.97);tone(p[0]*1.006,p[1]*.4,p[2],t,.97);});
+ var n=ac.sampleRate*.08,b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(var i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);var s=ac.createBufferSource();s.buffer=b;var f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=900;var g=ac.createGain();g.gain.value=.5;s.connect(f);f.connect(g);g.connect(master);s.start(t);}
+function gong3(){if(!ac||mute)return;var t=ac.currentTime;gong(t);gong(t+.9);gong(t+1.8);}
+function ambLoop(){clearTimeout(amb);amb=setTimeout(function(){if(!document.hidden){Math.random()<.5?bowl(.55):bell(.5);}ambLoop();},18000+Math.random()*12000);}
+var started=false;function first(){if(started)return;started=true;A();bell(.8);ambLoop();}
+document.addEventListener('pointerdown',first,true);document.addEventListener('touchstart',first,{capture:true,passive:true});
+(function(){var sb=document.createElement('button');sb.type='button';sb.textContent='🔊';sb.setAttribute('aria-label','เสียง');sb.style.cssText='position:fixed;right:10px;top:10px;width:40px;height:40px;border-radius:50%;border:1px solid #E6D5BE;background:rgba(255,255,255,.9);font-size:19px;z-index:20;cursor:pointer';sb.onclick=function(){A();mute=!mute;sb.textContent=mute?'🔇':'🔊';};document.body.appendChild(sb);})();
+(function(){var g=document.querySelector('.given');if(!g||!('IntersectionObserver' in window))return;var done=false;new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!done&&started){done=true;bowl(.9);}});},{threshold:.5}).observe(g);})();
 document.getElementById('f').addEventListener('submit',function(e){
   e.preventDefault();
   var err=document.getElementById('err'),a=Math.floor(+amt.value||0),name=document.getElementById('name').value.trim();
@@ -257,7 +274,7 @@ document.getElementById('f').addEventListener('submit',function(e){
   var b=document.getElementById('backup');b.style.display='block';
   document.getElementById('bcopy').onclick=function(){var x=this;copyText(msg).then(function(){x.textContent='คัดลอกแล้ว ✓';setTimeout(function(){x.textContent='คัดลอกข้อความอีกครั้ง';},1800);});};
   document.getElementById('bopen').onclick=function(){location.href='https://line.me/R/ti/p/%40917ytacj';};
-  setTimeout(function(){location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);},700);
+  A();started=true;gong3();setTimeout(function(){location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);},(ac&&!mute)?2900:700);
 });
 document.querySelectorAll('.cp').forEach(function(b){b.addEventListener('click',function(){copyText('4381234647').then(function(){b.textContent='คัดลอกแล้ว ✓';setTimeout(function(){b.textContent='คัดลอกเลข';},1800);});});});
 draw(); load();
