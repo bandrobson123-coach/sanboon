@@ -90,6 +90,9 @@ h1{font-size:30px;line-height:1.25;text-align:center;margin-top:2px;color:var(--
 .snd{position:fixed;right:10px;top:10px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.9);font-size:19px;cursor:pointer;z-index:6}
 footer{text-align:center;color:var(--muted);font-size:13px;margin-top:30px}
 .book .t4{position:relative;font-size:13px;line-height:1.35;margin-top:14px;color:#F3D9A0}
+.bellHint{text-align:center;margin-top:6px;font-size:15px;font-weight:600;color:#8A5E10;animation:bh 1.6s ease-in-out infinite;transition:opacity .8s}
+.bellHint.done{opacity:0;animation:none}
+@keyframes bh{50%{opacity:.45}}
 
 </style>
 </head>
@@ -103,6 +106,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:30px}
   <!-- cover -->
   <section class="view on" id="vCover">
     <p class="sub">ชั้นหนังสือคัดด้วยมือ ฝากไว้ให้ทุกคนได้อ่าน</p>
+    <p class="bellHint" id="bellHint">🔔 แตะหน้าจอ ฟังเสียงระฆัง</p>
     <div class="shelf"><div class="glow"></div>
       <div class="book" id="book"><div class="lotus">🪷</div><div class="t1">สมุดคัดธรรม</div><div class="t2">ด้วยลายมือ</div><div class="t3">เล่มที่ 1 · 20 หน้า</div><div class="t4">คัดลอกโดย<br>ประกายรุ้ง (วารุกะ) ผลสว่าง</div></div>
     </div>
@@ -175,6 +179,14 @@ function trill(){if(!ac||mute)return;var t=ac.currentTime;for(var i=0;i<14;i++){
 function coo(){if(!ac||mute)return;var t=ac.currentTime;[0,.45,.75].forEach(function(d,k){var o=ac.createOscillator(),g=ac.createGain(),s=t+d;o.frequency.setValueAtTime(560,s);o.frequency.linearRampToValueAtTime(500,s+.3);g.gain.setValueAtTime(0,s);g.gain.linearRampToValueAtTime(k?.03:.04,s+.06);g.gain.linearRampToValueAtTime(0,s+(k?.25:.35));o.connect(g);g.connect(master);g.connect(rev);o.start(s);o.stop(s+.4);});}
 function birdLoop(){setTimeout(function(){if(Date.now()-lastRustle>1200){var r=Math.random();r<.5?chirp():r<.8?trill():coo();}birdLoop();},5000+Math.random()*8000);}
 function startBirds(){if(birdsOn||!ac)return;birdsOn=true;setTimeout(chirp,1800);birdLoop();}
+
+// big resonant temple bell on first touch
+var lastBell=0;
+function bigBell(){if(!ac||mute)return;lastBell=Date.now();var t=ac.currentTime;
+  [[1,.34,14],[2.0,.16,9],[2.76,.13,7],[4.07,.07,4],[5.4,.045,3],[6.8,.025,2]].forEach(function(p){tone(220*p[0],p[1],p[2],t,true);tone(220*p[0]+.8,p[1]*.3,p[2],t,true);});
+  tone(110,.12,10,t,true);}
+var touched=false;function firstTouch(){if(touched)return;touched=true;A();bigBell();var h=$('bellHint');if(h)h.classList.add('done');}
+document.addEventListener('pointerdown',firstTouch,true);document.addEventListener('touchstart',firstTouch,{capture:true,passive:true});
 $('snd').onclick=function(){A();mute=!mute;this.textContent=mute?'🔇':'🔊';};
 
 // ===== views =====
@@ -200,7 +212,7 @@ function grid(){var h='';for(var i=1;i<=N;i++)h+='<button type="button" data-p="
   $('gridBackS').textContent='หน้า '+cur+' / '+N;view('vGrid');}
 $('gridBtn').onclick=grid;$('gridBack').onclick=function(){view('vRead');paint(0);};
 // open book
-function openBook(p){A();bell();startBirds();var b=$('book');b.classList.add('open');setTimeout(function(){cur=p||1;shownTap=cur===1;view('vRead');paint(0);b.classList.remove('open');},1300);}
+function openBook(p){A();if(Date.now()-lastBell>2500)bell();startBirds();var b=$('book');b.classList.add('open');setTimeout(function(){cur=p||1;shownTap=cur===1;view('vRead');paint(0);b.classList.remove('open');},1300);}
 $('book').onclick=function(){openBook(S.p>1&&!S.done?S.p:1);};
 function coverBtns(){var h='';if(S.p>1&&S.p<N&&!S.done){h+=pick('bRes','📖','อ่านต่อ หน้า '+S.p,'จากที่ค้างไว้ครั้งก่อน',true);h+=pick('bNew','🪷','เริ่มอ่านหน้า 1','',false);}
   else h+=pick('bNew','📖','เปิดอ่าน','แตะครั้งเดียว · ปัดซ้ายขวาเพื่อพลิกหน้า',true);
