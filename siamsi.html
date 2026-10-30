@@ -304,14 +304,13 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
       <a class="pick main toChedi" id="toChat" style="display:none" href="https://line.me/R/ti/p/@917ytacj"><span class="ic">🙏</span><span><b>กลับไปหน้าแชท สานบุญ</b><small>มาเสี่ยงได้ทุกเมื่อที่ใจต้องการ</small></span><span class="tap"><em>กดที่นี่</em>👇</span></a>
     </div>
     <div id="keepBox" class="sbox">
-      <div class="shead">5 เก็บใบนี้ไว้ฟัง<small>เสียงอ่านไฮกุ · เพลง · ภาพสวย · คำแปล</small></div>
+      <div class="shead">5 เก็บใบนี้ไว้ฟัง<small>เสียงอ่านไฮกุ · ภาพไฮกุ</small></div>
       <button type="button" class="pick main" id="keepBtn"><span class="ic">🎵</span><span><b>รับชุดเก็บใบนี้ · 40 บาท</b><small>ฟังไฮกุใบของคุณได้ทุกเมื่อ</small></span><span class="tap"><em>กดที่นี่</em>👇</span></button>
       <div id="keepMore">
         <ul class="kgot">
-          <li>🎧 เสียงอ่านไฮกุ</li>
-          <li>🎵 เพลงไฮกุใบนี้</li>
-          <li>🖼 ภาพไฮกุสวย ตั้งหน้าจอมือถือได้</li>
-          <li>📜 คำแปล</li>
+          <li>🎧 เสียงอ่านไฮกุใบของคุณ</li>
+          <li>🖼 ภาพไฮกุ ตั้งหน้าจอมือถือได้</li>
+          <li>🎁 เพลงไฮกุใบนี้ · ส่งให้ฟรีเมื่อพร้อม (ธ.ค. 2569)</li>
         </ul>
         <p style="font-size:14px;color:var(--muted);margin:0">ค่าลิขสิทธิ์งานไฮกุ ไม่ใช่การบริจาค · ส่งให้ทางแชทไลน์</p>
         <div class="kacc"><span><small>โอน 40 บาท · กรุงศรี</small><b>438-1-23464-7</b><small>บจก. ยูนิคอร์น (เอเชีย)</small></span><button type="button" id="kcp">คัดลอกเลข</button></div>
@@ -505,7 +504,7 @@ document.getElementById('kcp').addEventListener('click',function(){var b=this,t=
 document.getElementById('kgo').addEventListener('click',function(){
   var n=document.getElementById('kname').value.trim(),e=document.getElementById('kerr');
   if(!n){e.textContent='⚠ พิมพ์ชื่อของคุณก่อน';document.getElementById('kname').focus();return;}
-  var msg='🎵 ขอชุดเก็บใบเซียมซี\nใบที่ '+cur.no+' · '+cur.level+'\nชื่อ: '+n+'\nเสียงอ่านไฮกุ · เพลง · ภาพ · คำแปล\nค่าบริการ 40 บาท\n\nกรุงศรีอยุธยา\nบจก. ยูนิคอร์น (เอเชีย)\n438-1-23464-7\nโอนแล้วแนบสลิปในแชทนี้ 🙏';
+  var msg='🎵 ขอชุดเก็บใบเซียมซี\nใบที่ '+cur.no+' · '+cur.level+'\nชื่อ: '+n+'\nเสียงอ่านไฮกุ · ภาพไฮกุ (+เพลงฟรี ธ.ค.)\nค่าบริการ 40 บาท\n\nกรุงศรีอยุธยา\nบจก. ยูนิคอร์น (เอเชีย)\n438-1-23464-7\nโอนแล้วแนบสลิปในแชทนี้ 🙏';
   location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);
 });
 </script>
