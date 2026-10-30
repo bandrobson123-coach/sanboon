@@ -121,6 +121,11 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
 .err:not(:empty){background:#FCEBEB;border:2px solid #A32D2D;border-radius:14px;padding:10px 12px;font-size:16px;font-weight:700;line-height:1.5}
 .err b{display:block;font-size:17px}
 .miss{outline:3px solid #A32D2D;outline-offset:3px;border-radius:14px}
+.proj .meta{display:block;margin-top:4px}
+.mini{display:block;height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px}
+.mini i{display:block;height:100%;background:var(--gold)}
+.pick.on .mini{background:rgba(255,255,255,.4)}
+.pick.on .mini i{background:#fff}
 .copyline{display:flex;gap:8px;align-items:center;margin-top:6px}
 .copyline code{flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:15px "Sarabun",sans-serif}
 .copyline button{font:700 14px "Sarabun",sans-serif;border:0;border-radius:20px;background:var(--gold);color:#fff;padding:7px 12px;cursor:pointer;white-space:nowrap}
@@ -141,39 +146,37 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
     </div>
   </details>
 
-  <div class="prog" id="prog">
-    <div class="prow"><span>ช่างคนที่ 1 · <b id="crafter">รอแนะนำตัว</b></span><span class="amt" id="pct">0%</span></div>
-    <div class="bar"><i id="barFill"></i></div>
-    <div class="prow"><span style="font-size:14px;color:var(--muted)">ได้แล้ว <b id="raised" style="font-size:15px">0</b> บาท</span><span style="font-size:14px;color:var(--muted)">เป้า <b id="goal" style="font-size:15px">3,300</b> บาท</span></div>
-    <details>
-      <summary>เงินไปไหน<span class="i"></span></summary>
-      <div class="more">
-        <table class="facts">
-          <tr><th>วัสดุ</th><td>800</td></tr>
-          <tr><th>ค่าแรงช่าง</th><td>แผ่นลายสาน 10 แผ่น · แผ่นละ 100 = 1,000</td></tr>
-          <tr><th>พี่เลี้ยง</th><td>เดินทางไปสอน ตรวจงาน 1,000</td></tr>
-          <tr><th>ส่งถึงคุณ</th><td>บรรจุ + ภาพรายงาน 500</td></tr>
-        </table>
-        <p>ครบเป้า → ส่งภาพช่างกับผลงานกลับให้คุณทางไลน์</p>
-      </div>
-    </details>
-  </div>
+  <div class="act" id="projLbl" style="margin-top:14px;margin-bottom:6px">1 กดเลือกโครงการที่อยากสนับสนุน</div>
+  <div id="projects" style="display:grid;gap:8px"></div>
+  <details>
+    <summary>เงินไปไหน · ตัวอย่างโครงการช่าง 1 คน<span class="i"></span></summary>
+    <div class="more">
+      <table class="facts">
+        <tr><th>วัสดุ</th><td>800</td></tr>
+        <tr><th>ค่าแรงช่าง</th><td>แผ่นลายสาน 10 แผ่น · แผ่นละ 100 = 1,000</td></tr>
+        <tr><th>พี่เลี้ยง</th><td>เดินทางไปสอน ตรวจงาน 1,000</td></tr>
+        <tr><th>ส่งถึงคุณ</th><td>บรรจุ + ภาพรายงาน 500</td></tr>
+      </table>
+      <p>ครบเป้า → ส่งภาพช่างกับผลงานกลับให้คุณทางไลน์</p>
+    </div>
+  </details>
 
   <form id="f" class="decide" novalidate>
-    <div class="act">1 กดขออนุโมทนาบุญ · ฟรี</div>
+    <div class="act">2 กดขออนุโมทนาบุญ · ฟรี</div>
     <button type="button" class="pick" id="anuBtn">
       <span class="pic icon">🙏</span>
       <span class="txt"><b>ขออนุโมทนาบุญ</b><small>ยินดีกับช่างที่ได้เติบโต · เขียนชื่อลงสมุดถวาย</small></span>
       <span class="tick">✓</span>
     </button>
 
-    <div class="act" id="giftLbl">2 กดเลือกของขวัญ · แตะที่ภาพ</div>
+    <div class="act" id="giftLbl">3 กดเลือกของขวัญ · แตะที่ภาพ</div>
     <button type="button" class="pick it" data-g="sheet">
       <img class="pic" src="sangha-hero.jpg" alt="">
-      <span class="txt"><b>แผ่นลายสาน</b><small>ฝีมือช่างคนที่ 1 · สนับสนุนตามเจตนา</small></span>
+      <span class="txt"><b>แผ่นลายสาน</b><small>ขนาด A5 (21×15 ซม.) · สนับสนุนตามเจตนา</small></span>
       <span class="tick">✓</span>
     </button>
     <div id="sheetMore" class="tokmore">
+      <p class="note" style="text-align:left;color:var(--brown)">ใส่กรอบ แต่งห้อง แต่งโต๊ะทำงาน · ลายขิดทำมือ ไม่มีแผ่นไหนเหมือนกัน</p>
       <div class="q">
         <button type="button" data-a="99">99</button>
         <button type="button" data-a="199">199</button>
@@ -189,7 +192,7 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
     </button>
 
     <div id="destBox" class="tokmore">
-      <div class="act">3 กดเลือก ของขวัญนี้จะไปที่</div>
+      <div class="act">4 กดเลือก ของขวัญนี้จะไปที่</div>
       <div class="q">
         <button type="button" class="dest" data-d="ส่งให้ตัวเอง">ส่งให้ตัวเอง</button>
         <button type="button" class="dest" data-d="ส่งให้คนอื่น">ส่งให้คนอื่น</button>
@@ -240,6 +243,7 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
       <summary>คำถามที่พบบ่อย<span class="i"></span></summary>
       <div class="more">
         <p><b>นี่คือการบริจาคไหม</b> · ไม่ใช่ · คุณได้ของขวัญฝีมือช่างจริง และเงินไปเป็นค่าแรง วัสดุ และการพี่เลี้ยงช่าง</p>
+        <p><b>แผ่นลายสานใช้ทำอะไร</b> · ขนาด A5 (21×15 ซม.) ใส่กรอบแขวนผนัง ตั้งโต๊ะทำงาน แต่งห้อง</p>
         <p><b>ชุดคู่คืออะไร</b> · แผ่นลายสาน 1 แผ่น คู่กับซองโทรศัพท์ที่ทำจากลายสานแบบเดียวกัน · แผ่นในชุดเป็นแผ่นตัวอย่างลาย</p>
         <p><b>ส่งให้คนอื่นได้ไหม</b> · ได้ เช่น คนที่รัก หัวหน้า ลูกน้อง เพื่อนร่วมงาน · ส่งที่อยู่ผู้รับในแชท เราแนบการ์ดข้อความของคุณไปด้วย</p>
         <p><b>ฝากถวายวัด</b> · เรานำของขวัญไปถวายแทน ไม่มีค่าส่ง · ส่งภาพการถวายกลับให้คุณ</p>
@@ -252,30 +256,41 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
 </div>
 
 <script>
-var GOAL=3300,RAISED=0,CRAFTER='รอแนะนำตัว';
+var DEFAULT_PROJECTS=[{name:'ช่างคนที่ 1 · รอแนะนำตัว',desc:'แผ่นลายสาน 10 แผ่น · พี่เลี้ยงทีละคน',goal:3300,raised:0,img:'sangha-hero.jpg'}];
+var projects=[],proj=null;
 var SHEET_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vR-tMgtDgA7bmCDUWgGqpW9h4uafw_b4ZoGLe6z1ZBFZIlMRYK5DO_qsZOqTzEOL8Ley3yydcn5pn_B/pub?output=csv';
 var anumo=false,gift=null,dest=null;
 function $(i){return document.getElementById(i);}
 function fmt(n){return Number(n).toLocaleString('th-TH');}
-function showProg(){
-  $('crafter').textContent=CRAFTER;$('goal').textContent=fmt(GOAL);$('raised').textContent=fmt(RAISED);
-  var p=GOAL?Math.min(100,Math.round(RAISED*100/GOAL)):0;$('pct').textContent=p+'%';$('barFill').style.width=p+'%';
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function renderProjects(list){
+  projects=list; proj=list.length===1?list[0]:(list.indexOf(proj)>-1?proj:null);
+  $('projects').innerHTML=list.map(function(x,i){
+    var pc=x.goal?Math.min(100,Math.round(x.raised*100/x.goal)):0;
+    return '<button type="button" class="pick proj" data-p="'+i+'">'+(x.img?'<img class="pic" src="'+esc(x.img)+'" alt="">':'<span class="pic"></span>')+'<span class="txt"><b>'+esc(x.name)+'</b><small>'+esc(x.desc)+'</small><span class="mini"><i style="width:'+pc+'%"></i></span><small class="meta">ได้แล้ว '+fmt(x.raised)+' / เป้า '+fmt(x.goal)+' บาท · '+pc+'%</small></span><span class="tick">✓</span></button>';
+  }).join('');
+  document.querySelectorAll('.proj').forEach(function(b){b.addEventListener('click',function(){var x=projects[+b.dataset.p];proj=(proj===x&&projects.length>1)?null:x;update();});});
+  update();
 }
 function parseCSV(t){var rows=[],row=[],f='',q=false;for(var i=0;i<t.length;i++){var c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++;}else q=false;}else f+=c;}else if(c=='"')q=true;else if(c==','){row.push(f);f='';}else if(c=='\n'){row.push(f);rows.push(row);row=[];f='';}else if(c!='\r')f+=c;}if(f||row.length){row.push(f);rows.push(row);}return rows;}
 function loadProg(){
   fetch(SHEET_CSV+'&t='+Date.now()).then(function(r){return r.text();}).then(function(t){
-    parseCSV(t).forEach(function(r){
-      if((r[0]||'').trim()!=='ห้องของขวัญ')return;
-      var n=parseInt(String(r[3]||'').replace(/[^\d]/g,''))||0,k=(r[1]||'').trim();
-      if(k==='ยอดได้แล้ว')RAISED=n;else if(k==='เป้า'&&n)GOAL=n;else if(k==='ชื่อช่าง'&&r[2])CRAFTER=r[2].trim();
+    var list=[];
+    parseCSV(t).slice(1).forEach(function(r){
+      if((r[0]||'').trim()!=='ห้องของขวัญ'||!r[1])return;
+      var show=(r[5]||'').trim().toLowerCase(); if(show&&['ไม่','no','false','0','ซ่อน'].indexOf(show)>-1)return;
+      var num=function(v){return parseInt(String(v||'').replace(/[^\d]/g,''))||0;};
+      list.push({name:r[1].trim(),desc:(r[2]||'').trim(),goal:num(r[3]),img:(r[4]||'').trim(),ord:parseFloat(r[6])||999,raised:num(r[7])});
     });
-    showProg();
-  }).catch(function(){});
+    list.sort(function(a,b){return a.ord-b.ord;});
+    renderProjects(list.length?list:DEFAULT_PROJECTS);
+  }).catch(function(){renderProjects(DEFAULT_PROJECTS);});
 }
 function amt(){return Math.max(0,Math.floor(+$('amt').value||0));}
 function shipCost(){return (gift==='sheet'&&dest&&dest!=='ฝากถวายวัด')?50:0;}
 function giftCost(){return gift==='set'?2500:(gift==='sheet'?amt():0);}
 function update(){
+  document.querySelectorAll('.proj').forEach(function(b){b.classList.toggle('on',projects[+b.dataset.p]===proj);});
   $('anuBtn').classList.toggle('on',anumo);
   document.querySelectorAll('.it').forEach(function(b){b.classList.toggle('on',b.dataset.g===gift);});
   $('sheetMore').classList.toggle('show',gift==='sheet');
@@ -287,7 +302,7 @@ function update(){
   $('shipNote').style.display=sending?'block':'none';
   $('cardBox').style.display=dest==='ส่งให้คนอื่น'?'grid':'none';
   $('destBox').style.outline='';
-  var n=gift?4:3;$('nameLbl').textContent=n+' พิมพ์ชื่อของคุณ';
+  var n=gift?5:4;$('nameLbl').textContent=n+' พิมพ์ชื่อของคุณ';
   var parts=[];if(anumo)parts.push('อนุโมทนา');
   if(gift==='sheet')parts.push('แผ่นลายสาน');if(gift==='set')parts.push('ชุดคู่');
   if(shipCost())parts.push('ค่าส่ง 50');
@@ -318,10 +333,11 @@ $('f').addEventListener('submit',function(e){
   e.preventDefault();
   var err=$('err'),name=$('name').value.trim();
   var miss=[];
+  if(!proj)miss.push(['ข้อ 1 · กดเลือกโครงการที่อยากสนับสนุน',$('projLbl')]);
   document.querySelectorAll('.miss').forEach(function(x){x.classList.remove('miss');});
-  if(!anumo&&!gift)miss.push(['ข้อ 1 หรือ 2 · กดขออนุโมทนา หรือเลือกของขวัญ',$('giftLbl')]);
-  if(gift==='sheet'&&!amt())miss.push(['ข้อ 2 · ใส่ยอดสนับสนุนแผ่นลายสาน',$('sheetMore')]);
-  if(gift&&!dest)miss.push(['ข้อ 3 · กดเลือกว่าของขวัญจะไปที่ไหน',$('destBox')]);
+  if(!anumo&&!gift)miss.push(['ข้อ 2 หรือ 3 · กดขออนุโมทนา หรือเลือกของขวัญ',$('giftLbl')]);
+  if(gift==='sheet'&&!amt())miss.push(['ข้อ 3 · ใส่ยอดสนับสนุนแผ่นลายสาน',$('sheetMore')]);
+  if(gift&&!dest)miss.push(['ข้อ 4 · กดเลือกว่าของขวัญจะไปที่ไหน',$('destBox')]);
   if(!name)miss.push(['ข้อ '+$('nameLbl').textContent.split(' ')[0]+' · พิมพ์ชื่อของคุณ',$('name')]);
   if(miss.length){
     err.innerHTML='<b>⚠ ยังส่งไม่ได้ ยังขาด '+miss.length+' ขั้น</b>'+miss.map(function(m){return '• '+m[0];}).join('<br>');
@@ -331,7 +347,7 @@ $('f').addEventListener('submit',function(e){
   }
   var d=new Date(),p2=function(n){return ('0'+n).slice(-2);};
   var code='G'+p2(d.getMonth()+1)+p2(d.getDate())+'-'+(1000+Math.floor(Math.random()*9000));
-  var msg='🎁 ห้องของขวัญ\nเลขที่ #'+code+'\nชื่อ: '+name+'\nสนับสนุนช่าง: '+CRAFTER;
+  var msg='🎁 ห้องของขวัญ\nเลขที่ #'+code+'\nชื่อ: '+name+'\nโครงการ: '+proj.name;
   if(anumo)msg+='\nขออนุโมทนาบุญ · เขียนชื่อลงสมุดถวาย ✓';
   if(gift==='sheet')msg+='\nของขวัญ: แผ่นลายสาน ('+fmt(amt())+' บาท)';
   if(gift==='set')msg+='\nของขวัญ: ชุดคู่ แผ่นลายสาน + ซองโทรศัพท์ (2,500 บาท รวมส่ง)';
@@ -342,12 +358,12 @@ $('f').addEventListener('submit',function(e){
   else msg+='\n\nสาธุ 🙏';
   copyText(msg);
   $('bmsg').textContent=msg;
-  $('backup').style.display='block';
+  setTimeout(function(){$('backup').style.display='block';},2500);
   var bc=$('bcopy');bc._t=msg;bc.onclick=function(){flash(bc,'คัดลอกข้อความอีกครั้ง');};
   $('bopen').onclick=function(){location.href='https://line.me/R/ti/p/%40917ytacj';};
-  setTimeout(function(){location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);},700);
+  setTimeout(function(){location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);},300);
 });
-showProg();update();loadProg();
+update();renderProjects(DEFAULT_PROJECTS);loadProg();
 </script>
 </body>
 </html>
