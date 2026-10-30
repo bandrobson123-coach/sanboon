@@ -119,6 +119,17 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
 #fare.show{background:radial-gradient(circle at 50% 45%,rgba(255,244,214,.97),rgba(246,214,160,.97))}
 #fare b{font-size:26px;color:#B8562A;opacity:0;transition:opacity 1.6s .8s}#fare span{font-size:16px;opacity:0;transition:opacity 1.6s 1.4s}#fare i{font-style:normal;font-size:46px;opacity:0;transition:opacity 1.2s .4s}
 #fare.show b,#fare.show span,#fare.show i{opacity:1}
+#keepBox{display:none}
+#keepMore{display:none;margin-top:10px;gap:10px}
+#keepMore.show{display:grid}
+.kgot{list-style:none;display:grid;gap:4px;font-size:15px;color:var(--brown);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.kacc{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--card);border:1.5px solid #C8892B;border-radius:12px;padding:8px 10px}
+.kacc small{display:block;font-size:13px;color:var(--muted)}
+.kacc b{font-size:19px}
+.kacc button{font-family:inherit;font-weight:700;font-size:15px;border:0;border-radius:20px;background:#C8892B;color:#fff;padding:8px 12px;cursor:pointer}
+#kname{font-family:inherit;font-size:17px;padding:10px 12px;border:2px solid #C8892B!important;border-radius:12px;width:100%;box-sizing:border-box}
+#kerr:not(:empty){background:#FCEBEB;border:2px solid #A32D2D;border-radius:12px;padding:8px 10px;font-weight:700;color:#A32D2D}
+#kgo{display:block;width:100%;padding:14px;border:0;border-radius:40px;background:var(--green);color:#fff;font-family:inherit;font-weight:700;font-size:19px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -292,6 +303,23 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
       <a class="pick main toChedi" id="toChedi" style="display:none" href="chedi.html"><span class="ic">🧱</span><span><b>ได้อิฐความดีแล้ว · ไปก่อเจดีย์</b><small>เจดีย์แห่งความดี ของคุณ</small></span><span class="tap"><em>กดที่นี่</em>👇</span></a>
       <a class="pick main toChedi" id="toChat" style="display:none" href="https://line.me/R/ti/p/@917ytacj"><span class="ic">🙏</span><span><b>กลับไปหน้าแชท สานบุญ</b><small>มาเสี่ยงได้ทุกเมื่อที่ใจต้องการ</small></span><span class="tap"><em>กดที่นี่</em>👇</span></a>
     </div>
+    <div id="keepBox" class="sbox">
+      <div class="shead">5 เก็บใบนี้ไว้ฟัง<small>เสียงอ่านไฮกุ · เพลง · ภาพสวย · คำแปล</small></div>
+      <button type="button" class="pick main" id="keepBtn"><span class="ic">🎵</span><span><b>รับชุดเก็บใบนี้ · 40 บาท</b><small>ฟังไฮกุใบของคุณได้ทุกเมื่อ</small></span><span class="tap"><em>กดที่นี่</em>👇</span></button>
+      <div id="keepMore">
+        <ul class="kgot">
+          <li>🎧 เสียงอ่านไฮกุ</li>
+          <li>🎵 เพลงไฮกุใบนี้</li>
+          <li>🖼 ภาพไฮกุสวย ตั้งหน้าจอมือถือได้</li>
+          <li>📜 คำแปล</li>
+        </ul>
+        <p style="font-size:14px;color:var(--muted);margin:0">ค่าลิขสิทธิ์งานไฮกุ ไม่ใช่การบริจาค · ส่งให้ทางแชทไลน์</p>
+        <div class="kacc"><span><small>โอน 40 บาท · กรุงศรี</small><b>438-1-23464-7</b><small>บจก. ยูนิคอร์น (เอเชีย)</small></span><button type="button" id="kcp">คัดลอกเลข</button></div>
+        <input type="text" id="kname" placeholder="✎ พิมพ์ชื่อของคุณ">
+        <div id="kerr"></div>
+        <button type="button" id="kgo">ส่งเข้าไลน์ · แนบสลิป ›</button>
+      </div>
+    </div>
     <button type="button" class="again" id="again">เสี่ยงใหม่อีกครั้ง</button>
   </div>
 
@@ -340,6 +368,7 @@ function show(){setTimeout(function(){birdsStart();},1800);
   document.getElementById('cardImg').style.display='block';
   var mm=document.getElementById('meaning');mm.style.display='none';mm.innerHTML='';document.getElementById('askBtn').style.display='flex';
   window.scrollTo({top:r.offsetTop-10,behavior:'smooth'});
+  keepShow();
   busy=false;
 }
 function enableMotion(){
@@ -461,6 +490,24 @@ function farewell(url){birdsStop();templeBell();setTimeout(bowlS,1200);var o=doc
   a.innerHTML='<span class="ic">🙏</span><span><b>เพิ่มเพื่อน LINE สานบุญ</b><small>เพื่อนชวนมา · มาสงบใจได้ทุกวัน ฟรี</small></span><span class="tap"><em>กดที่นี่</em>👇</span>';
   a.style.marginTop='40px';var t=(/[?&](bai|b)=/.test(location.search)&&document.getElementById('cardImg'))||document.querySelector('.hero')||document.querySelector('.sub')||document.querySelector('h1');if(t&&t.parentNode)t.parentNode.insertBefore(a,t.nextSibling);
   var f=document.querySelector('footer');if(f){var b=a.cloneNode(true);f.parentNode.insertBefore(b,f);}})();
+
+// ===== ชุดเก็บใบ 40 บาท =====
+var KEEP_READY={},KEEP_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vR-tMgtDgA7bmCDUWgGqpW9h4uafw_b4ZoGLe6z1ZBFZIlMRYK5DO_qsZOqTzEOL8Ley3yydcn5pn_B/pub?output=csv';
+function keepShow(){var k=document.getElementById('keepBox');if(!k)return;k.style.display=(cur&&KEEP_READY[cur.no])?'block':'none';document.getElementById('keepMore').classList.remove('show');document.getElementById('kerr').textContent='';}
+fetch(KEEP_CSV+'&t='+Date.now()).then(function(r){return r.text();}).then(function(t){
+  t.split('\n').forEach(function(line){var c=line.split(',');if((c[0]||'').trim()==='เซียมซีชุดเก็บ'){var n=parseInt(c[1]);if(n)KEEP_READY[n]=1;}});
+  if(document.getElementById('result').style.display==='block')keepShow();
+}).catch(function(){});
+document.getElementById('keepBtn').addEventListener('click',function(){var m=document.getElementById('keepMore');m.classList.toggle('show');if(m.classList.contains('show'))m.scrollIntoView({behavior:'smooth',block:'center'});});
+document.getElementById('kcp').addEventListener('click',function(){var b=this,t='4381234647';
+  try{navigator.clipboard.writeText(t);}catch(e){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');}catch(x){}document.body.removeChild(a);}
+  b.textContent='คัดลอกแล้ว ✓';setTimeout(function(){b.textContent='คัดลอกเลข';},1800);});
+document.getElementById('kgo').addEventListener('click',function(){
+  var n=document.getElementById('kname').value.trim(),e=document.getElementById('kerr');
+  if(!n){e.textContent='⚠ พิมพ์ชื่อของคุณก่อน';document.getElementById('kname').focus();return;}
+  var msg='🎵 ขอชุดเก็บใบเซียมซี\nใบที่ '+cur.no+' · '+cur.level+'\nชื่อ: '+n+'\nเสียงอ่านไฮกุ · เพลง · ภาพ · คำแปล\nค่าบริการ 40 บาท\n\nกรุงศรีอยุธยา\nบจก. ยูนิคอร์น (เอเชีย)\n438-1-23464-7\nโอนแล้วแนบสลิปในแชทนี้ 🙏';
+  location.href='https://line.me/R/oaMessage/%40917ytacj/?'+encodeURIComponent(msg);
+});
 </script>
 <div id="fare"><i>🙏</i><b>ขอให้แสงนำทางใจคุณ</b><span>เป็นเช่นนั้น · มาใหม่ได้ทุกเมื่อ</span></div>
 </body>
