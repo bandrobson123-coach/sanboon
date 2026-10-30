@@ -148,6 +148,7 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
 
   <div class="act" id="projLbl" style="margin-top:14px;margin-bottom:6px">1 กดเลือกโครงการที่อยากสนับสนุน</div>
   <div id="projects" style="display:grid;gap:8px"></div>
+  <div id="story" class="more" style="display:none;margin-top:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:15px;color:var(--brown)"></div>
   <details>
     <summary>เงินไปไหน · ตัวอย่างโครงการช่าง 1 คน<span class="i"></span></summary>
     <div class="more">
@@ -256,7 +257,7 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
 </div>
 
 <script>
-var DEFAULT_PROJECTS=[{name:'ช่างคนที่ 1 · รอแนะนำตัว',desc:'แผ่นลายสาน 10 แผ่น · พี่เลี้ยงทีละคน',goal:3300,raised:0,img:'sangha-hero.jpg'}];
+var DEFAULT_PROJECTS=[{name:'ช่างทิพย์ · บ้านน้ำพุ',desc:'สานกระติบข้าว 15+ ปี · ริมหนองหาร',story:'ช่างทิพย์สานกระติบข้าวมากว่า 15 ปี อยู่ริมพื้นที่ชุ่มน้ำหนองหาร บ้านน้ำพุ อ.โพนนาแก้ว ใช้ไผ่ที่ขึ้นตามธรรมชาติเลี้ยงครอบครัว|วันนี้เธออยากยกระดับฝีมือ จากเครื่องใช้ สู่งานหัตถศิลป์ลายขิด เพื่อชีวิตที่ดีขึ้นด้วยไผ่|ช่างในเครือข่าย แม่โขง แบมบู คราฟ',goal:3300,raised:0,img:'crafter1.jpg'}];
 var projects=[],proj=null;
 var SHEET_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vR-tMgtDgA7bmCDUWgGqpW9h4uafw_b4ZoGLe6z1ZBFZIlMRYK5DO_qsZOqTzEOL8Ley3yydcn5pn_B/pub?output=csv';
 var anumo=false,gift=null,dest=null;
@@ -280,7 +281,7 @@ function loadProg(){
       if((r[0]||'').trim()!=='ห้องของขวัญ'||!r[1])return;
       var show=(r[5]||'').trim().toLowerCase(); if(show&&['ไม่','no','false','0','ซ่อน'].indexOf(show)>-1)return;
       var num=function(v){return parseInt(String(v||'').replace(/[^\d]/g,''))||0;};
-      list.push({name:r[1].trim(),desc:(r[2]||'').trim(),goal:num(r[3]),img:(r[4]||'').trim(),ord:parseFloat(r[6])||999,raised:num(r[7])});
+      list.push({name:r[1].trim(),desc:(r[2]||'').trim(),goal:num(r[3]),img:(r[4]||'').trim(),ord:parseFloat(r[6])||999,raised:num(r[7]),story:(r[8]||'').trim()});
     });
     list.sort(function(a,b){return a.ord-b.ord;});
     renderProjects(list.length?list:DEFAULT_PROJECTS);
@@ -291,6 +292,7 @@ function shipCost(){return (gift==='sheet'&&dest&&dest!=='ฝากถวาย�
 function giftCost(){return gift==='set'?2500:(gift==='sheet'?amt():0);}
 function update(){
   document.querySelectorAll('.proj').forEach(function(b){b.classList.toggle('on',projects[+b.dataset.p]===proj);});
+  var st=$('story');if(proj&&proj.story){st.innerHTML=proj.story.split('|').map(function(x,i){return '<p'+(i?' style="margin-top:6px"':'')+'>'+esc(x)+'</p>';}).join('');st.style.display='block';}else st.style.display='none';
   $('anuBtn').classList.toggle('on',anumo);
   document.querySelectorAll('.it').forEach(function(b){b.classList.toggle('on',b.dataset.g===gift);});
   $('sheetMore').classList.toggle('show',gift==='sheet');
