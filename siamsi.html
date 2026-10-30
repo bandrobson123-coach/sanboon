@@ -312,7 +312,7 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
           <li>🖼 ภาพไฮกุ ตั้งหน้าจอมือถือได้</li>
           <li>🎁 เพลงไฮกุใบนี้ · ส่งให้ฟรีเมื่อพร้อม (ธ.ค. 2569)</li>
         </ul>
-        <p style="font-size:14px;color:var(--muted);margin:0">ค่าลิขสิทธิ์งานไฮกุ ไม่ใช่การบริจาค · ส่งให้ทางแชทไลน์</p>
+        <p style="font-size:14px;color:var(--muted);margin:0">ค่าลิขสิทธิ์งานไฮกุ ไม่ใช่การบริจาค · ทำเฉพาะใบของคุณ ส่งในแชทไลน์ภายใน 24 ชั่วโมง</p>
         <div class="kacc"><span><small>โอน 40 บาท · กรุงศรี</small><b>438-1-23464-7</b><small>บจก. ยูนิคอร์น (เอเชีย)</small></span><button type="button" id="kcp">คัดลอกเลข</button></div>
         <input type="text" id="kname" placeholder="✎ พิมพ์ชื่อของคุณ">
         <div id="kerr"></div>
@@ -492,7 +492,7 @@ function farewell(url){birdsStop();templeBell();setTimeout(bowlS,1200);var o=doc
 
 // ===== ชุดเก็บใบ 40 บาท =====
 var KEEP_READY={},KEEP_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vR-tMgtDgA7bmCDUWgGqpW9h4uafw_b4ZoGLe6z1ZBFZIlMRYK5DO_qsZOqTzEOL8Ley3yydcn5pn_B/pub?output=csv';
-function keepShow(){var k=document.getElementById('keepBox');if(!k)return;k.style.display=(cur&&KEEP_READY[cur.no])?'block':'none';document.getElementById('keepMore').classList.remove('show');document.getElementById('kerr').textContent='';}
+function keepShow(){var k=document.getElementById('keepBox');if(!k)return;k.style.display=cur?'block':'none';document.getElementById('keepMore').classList.remove('show');document.getElementById('kerr').textContent='';}
 fetch(KEEP_CSV+'&t='+Date.now()).then(function(r){return r.text();}).then(function(t){
   t.split('\n').forEach(function(line){var c=line.split(',');if((c[0]||'').trim()==='เซียมซีชุดเก็บ'){var n=parseInt(c[1]);if(n)KEEP_READY[n]=1;}});
   if(document.getElementById('result').style.display==='block')keepShow();
