@@ -118,6 +118,9 @@ select{font:17px "Sarabun",sans-serif;padding:10px 12px;border:2px solid var(--g
 .sum span{font-size:14px;color:var(--brown)}
 .sum b{font-size:22px;white-space:nowrap}
 footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
+.err:not(:empty){background:#FCEBEB;border:2px solid #A32D2D;border-radius:14px;padding:10px 12px;font-size:16px;font-weight:700;line-height:1.5}
+.err b{display:block;font-size:17px}
+.miss{outline:3px solid #A32D2D;outline-offset:3px;border-radius:14px}
 .copyline{display:flex;gap:8px;align-items:center;margin-top:6px}
 .copyline code{flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:15px "Sarabun",sans-serif}
 .copyline button{font:700 14px "Sarabun",sans-serif;border:0;border-radius:20px;background:var(--gold);color:#fff;padding:7px 12px;cursor:pointer;white-space:nowrap}
@@ -125,7 +128,7 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
 </head>
 <body>
 <div class="wrap">
-  <div class="brand">สานบุญ · ร่วมกัน สานความดีถวายบูชา</div>
+  <div class="brand">สานบุญ ร่วมกันสานความดี</div>
   <h1 class="voice" style="margin-top:10px">ของขวัญ 1 ชิ้น<br>ช่าง 1 คน ได้เติบโตด้วยฝีมือ</h1>
   <div class="hero"><img style="object-position:center 50%" src="sangha-hero.jpg" alt="แผ่นไผ่สานลายขิด และซองลายขิดทำมือ"></div>
 
@@ -164,7 +167,7 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
       <span class="tick">✓</span>
     </button>
 
-    <div class="act">2 กดเลือกของขวัญ · แตะที่ภาพ</div>
+    <div class="act" id="giftLbl">2 กดเลือกของขวัญ · แตะที่ภาพ</div>
     <button type="button" class="pick it" data-g="sheet">
       <img class="pic" src="sangha-hero.jpg" alt="">
       <span class="txt"><b>แผ่นลายสาน</b><small>ฝีมือช่างคนที่ 1 · สนับสนุนตามเจตนา</small></span>
@@ -188,8 +191,8 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
     <div id="destBox" class="tokmore">
       <div class="act">3 กดเลือก ของขวัญนี้จะไปที่</div>
       <div class="q">
-        <button type="button" class="dest" data-d="ใช้เอง">ใช้เอง</button>
-        <button type="button" class="dest" data-d="ให้คนที่รัก">ให้คนที่รัก</button>
+        <button type="button" class="dest" data-d="ส่งให้ตัวเอง">ส่งให้ตัวเอง</button>
+        <button type="button" class="dest" data-d="ส่งให้คนอื่น">ส่งให้คนอื่น</button>
         <button type="button" class="dest" data-d="ฝากถวายวัด">ฝากถวายวัด</button>
       </div>
       <label class="field" id="templeBox" style="display:none">เลือกวัด
@@ -203,13 +206,10 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
           <option>วัดอื่นในจังหวัดสกลนคร</option>
         </select>
       </label>
-      <div id="shipBox" style="display:none">
-        <div class="q" style="grid-template-columns:1fr 1fr">
-          <button type="button" class="ship" data-s="0">รับเอง · สกลนคร</button>
-          <button type="button" class="ship" data-s="50">ส่งถึงบ้าน +50</button>
-        </div>
-        <p class="note" style="margin-top:4px">ค่าส่งเกิน 50 บาท แจ้งยอดจริงในแชทก่อนโอน</p>
-      </div>
+      <label class="field" id="cardBox" style="display:none">พิมพ์ข้อความบนการ์ด (ไม่ใส่ก็ได้)
+        <input type="text" id="card" placeholder="✎ เช่น ขอบคุณที่ดูแลทีมเสมอ">
+      </label>
+      <p class="note" id="shipNote" style="display:none">ส่งที่อยู่ผู้รับในแชทไลน์ · ค่าส่งแผ่นลายสาน 50 บาท (เกินแจ้งยอดจริงก่อนโอน)</p>
     </div>
 
     <label class="field"><span id="nameLbl">4 พิมพ์ชื่อของคุณ</span>
@@ -241,19 +241,20 @@ footer{padding:26px 0 10px;text-align:center;font-size:13px;color:var(--muted)}
       <div class="more">
         <p><b>นี่คือการบริจาคไหม</b> · ไม่ใช่ · คุณได้ของขวัญฝีมือช่างจริง และเงินไปเป็นค่าแรง วัสดุ และการพี่เลี้ยงช่าง</p>
         <p><b>ชุดคู่คืออะไร</b> · แผ่นลายสาน 1 แผ่น คู่กับซองโทรศัพท์ที่ทำจากลายสานแบบเดียวกัน · แผ่นในชุดเป็นแผ่นตัวอย่างลาย</p>
+        <p><b>ส่งให้คนอื่นได้ไหม</b> · ได้ เช่น คนที่รัก หัวหน้า ลูกน้อง เพื่อนร่วมงาน · ส่งที่อยู่ผู้รับในแชท เราแนบการ์ดข้อความของคุณไปด้วย</p>
         <p><b>ฝากถวายวัด</b> · เรานำของขวัญไปถวายแทน ไม่มีค่าส่ง · ส่งภาพการถวายกลับให้คุณ</p>
         <p><b>เงินเข้าบัญชีใคร</b> · บจก. ยูนิคอร์น (เอเชีย) กิจการเพื่อสังคม ไม่ใช่บัญชีบุคคล</p>
       </div>
     </details>
   </div>
 
-  <footer><b style="color:var(--ink)">สานบุญ</b> · ร่วมกัน สานความดีถวายบูชา<br>ดำเนินงานโดย บริษัท ยูนิคอร์น (เอเชีย) จำกัด · กิจการเพื่อสังคม<br>เลขทะเบียนนิติบุคคล 0405559002069<br>390 หมู่ที่ 19 ต.ศิลา อ.เมืองขอนแก่น จ.ขอนแก่น 40000<br>โทร <a href="tel:0815480898" style="color:inherit">081-548-0898</a> · LINE @917ytacj</footer>
+  <footer><b style="color:var(--ink)">สานบุญ</b> ร่วมกันสานความดี<br>ดำเนินงานโดย บริษัท ยูนิคอร์น (เอเชีย) จำกัด · กิจการเพื่อสังคม<br>เลขทะเบียนนิติบุคคล 0405559002069<br>390 หมู่ที่ 19 ต.ศิลา อ.เมืองขอนแก่น จ.ขอนแก่น 40000<br>โทร <a href="tel:0815480898" style="color:inherit">081-548-0898</a> · LINE @917ytacj</footer>
 </div>
 
 <script>
 var GOAL=3300,RAISED=0,CRAFTER='รอแนะนำตัว';
 var SHEET_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vR-tMgtDgA7bmCDUWgGqpW9h4uafw_b4ZoGLe6z1ZBFZIlMRYK5DO_qsZOqTzEOL8Ley3yydcn5pn_B/pub?output=csv';
-var anumo=false,gift=null,dest=null,ship=null;
+var anumo=false,gift=null,dest=null;
 function $(i){return document.getElementById(i);}
 function fmt(n){return Number(n).toLocaleString('th-TH');}
 function showProg(){
@@ -272,7 +273,7 @@ function loadProg(){
   }).catch(function(){});
 }
 function amt(){return Math.max(0,Math.floor(+$('amt').value||0));}
-function shipCost(){return (gift==='sheet'&&dest!=='ฝากถวายวัด'&&ship)?ship:0;}
+function shipCost(){return (gift==='sheet'&&dest&&dest!=='ฝากถวายวัด')?50:0;}
 function giftCost(){return gift==='set'?2500:(gift==='sheet'?amt():0);}
 function update(){
   $('anuBtn').classList.toggle('on',anumo);
@@ -282,8 +283,10 @@ function update(){
   $('destBox').classList.toggle('show',!!gift);
   document.querySelectorAll('.dest').forEach(function(b){b.classList.toggle('on',b.dataset.d===dest);});
   $('templeBox').style.display=dest==='ฝากถวายวัด'?'grid':'none';
-  $('shipBox').style.display=(gift==='sheet'&&dest&&dest!=='ฝากถวายวัด')?'block':'none';
-  document.querySelectorAll('.ship').forEach(function(b){b.classList.toggle('on',ship!==null&&+b.dataset.s===ship);});
+  var sending=!!dest&&dest!=='ฝากถวายวัด';
+  $('shipNote').style.display=sending?'block':'none';
+  $('cardBox').style.display=dest==='ส่งให้คนอื่น'?'grid':'none';
+  $('destBox').style.outline='';
   var n=gift?4:3;$('nameLbl').textContent=n+' พิมพ์ชื่อของคุณ';
   var parts=[];if(anumo)parts.push('อนุโมทนา');
   if(gift==='sheet')parts.push('แผ่นลายสาน');if(gift==='set')parts.push('ชุดคู่');
@@ -295,13 +298,14 @@ function update(){
   $('payBox').querySelector('.payh').textContent=(n+1)+' โอนสนับสนุน';
   $('sendLbl').textContent=(sum>0?n+2:n+1)+' กดส่งเจตนาเข้าไลน์'+(sum>0?' · แนบสลิปในแชท':'');
   $('err').textContent='';
+  document.querySelectorAll('.miss').forEach(function(x){x.classList.remove('miss');});
 }
 $('anuBtn').addEventListener('click',function(){anumo=!anumo;update();});
 document.querySelectorAll('.it').forEach(function(b){b.addEventListener('click',function(){gift=(gift===b.dataset.g)?null:b.dataset.g;if(gift==='sheet'&&!$('amt').value)$('amt').value=199;update();});});
 document.querySelectorAll('[data-a]').forEach(function(b){b.addEventListener('click',function(){$('amt').value=b.dataset.a;update();});});
 $('amt').addEventListener('input',update);
 document.querySelectorAll('.dest').forEach(function(b){b.addEventListener('click',function(){dest=b.dataset.d;update();});});
-document.querySelectorAll('.ship').forEach(function(b){b.addEventListener('click',function(){ship=+b.dataset.s;update();});});
+
 $('name').addEventListener('input',function(){$('err').textContent='';});
 function copyText(t){
   try{if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(t).catch(function(){});}}catch(e){}
@@ -313,11 +317,18 @@ var cp=document.querySelector('.cp');cp._t='4381234647';cp.addEventListener('cli
 $('f').addEventListener('submit',function(e){
   e.preventDefault();
   var err=$('err'),name=$('name').value.trim();
-  if(!anumo&&!gift){err.textContent='เลือกอย่างน้อย 1 อย่าง: อนุโมทนา หรือของขวัญ';return;}
-  if(gift==='sheet'&&!amt()){err.textContent='ใส่ยอดสนับสนุนแผ่นลายสานก่อน';$('amt').focus();return;}
-  if(gift&&!dest){err.textContent='เลือกก่อนว่าของขวัญจะไปที่ไหน';return;}
-  if(gift==='sheet'&&dest!=='ฝากถวายวัด'&&ship===null){err.textContent='เลือกรับเอง หรือส่งถึงบ้าน';return;}
-  if(!name){err.textContent='ใส่ชื่อของคุณก่อน';$('name').focus();return;}
+  var miss=[];
+  document.querySelectorAll('.miss').forEach(function(x){x.classList.remove('miss');});
+  if(!anumo&&!gift)miss.push(['ข้อ 1 หรือ 2 · กดขออนุโมทนา หรือเลือกของขวัญ',$('giftLbl')]);
+  if(gift==='sheet'&&!amt())miss.push(['ข้อ 2 · ใส่ยอดสนับสนุนแผ่นลายสาน',$('sheetMore')]);
+  if(gift&&!dest)miss.push(['ข้อ 3 · กดเลือกว่าของขวัญจะไปที่ไหน',$('destBox')]);
+  if(!name)miss.push(['ข้อ '+$('nameLbl').textContent.split(' ')[0]+' · พิมพ์ชื่อของคุณ',$('name')]);
+  if(miss.length){
+    err.innerHTML='<b>⚠ ยังส่งไม่ได้ ยังขาด '+miss.length+' ขั้น</b>'+miss.map(function(m){return '• '+m[0];}).join('<br>');
+    miss.forEach(function(m){m[1].classList.add('miss');});
+    miss[0][1].scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
   var d=new Date(),p2=function(n){return ('0'+n).slice(-2);};
   var code='G'+p2(d.getMonth()+1)+p2(d.getDate())+'-'+(1000+Math.floor(Math.random()*9000));
   var msg='🎁 ห้องของขวัญ\nเลขที่ #'+code+'\nชื่อ: '+name+'\nสนับสนุนช่าง: '+CRAFTER;
@@ -325,7 +336,7 @@ $('f').addEventListener('submit',function(e){
   if(gift==='sheet')msg+='\nของขวัญ: แผ่นลายสาน ('+fmt(amt())+' บาท)';
   if(gift==='set')msg+='\nของขวัญ: ชุดคู่ แผ่นลายสาน + ซองโทรศัพท์ (2,500 บาท รวมส่ง)';
   if(dest)msg+='\nไปที่: '+dest+(dest==='ฝากถวายวัด'?' · '+$('place').value:'');
-  if(gift==='sheet'&&dest!=='ฝากถวายวัด')msg+=ship?'\nส่งถึงบ้าน +50 บาท (ขอที่อยู่ในแชท)':'\nรับเองที่สกลนคร';
+  if(dest&&dest!=='ฝากถวายวัด'){var c=$('card').value.trim();if(dest==='ส่งให้คนอื่น'&&c)msg+='\nข้อความบนการ์ด: '+c;msg+='\n📦 จะส่งชื่อ-ที่อยู่-เบอร์ผู้รับ ในแชทนี้';if(shipCost())msg+=' (ค่าส่ง 50 บาท)';}
   var sum=giftCost()+shipCost();
   if(sum){msg+='\nรวม: '+fmt(sum)+' บาท\n\n— โอนสนับสนุน —\nกรุงศรีอยุธยา\nบจก. ยูนิคอร์น (เอเชีย)\n438-1-23464-7\nโอนแล้วแนบสลิปในแชทนี้ 🙏';}
   else msg+='\n\nสาธุ 🙏';
